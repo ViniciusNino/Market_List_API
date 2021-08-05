@@ -16,10 +16,18 @@ namespace MarketList_Business
 
         public async Task<UsuarioAutenticadoViewModel> AutenticarUsuario(InformacaoAutenticacaoUsuarioDTO InformacaoAutenticacaoUsuario)
         {
-            if (string.IsNullOrEmpty(InformacaoAutenticacaoUsuario.SSenha) && string.IsNullOrEmpty(InformacaoAutenticacaoUsuario.SUsuario))
-                return null;
+            try
+            {
+                if (string.IsNullOrEmpty(InformacaoAutenticacaoUsuario.SSenha) && string.IsNullOrEmpty(InformacaoAutenticacaoUsuario.SUsuario))
+                    return null;
 
-            return await _usuarioRepository.AutenticarUsuario(InformacaoAutenticacaoUsuario);
+                return await _usuarioRepository.AutenticarUsuario(InformacaoAutenticacaoUsuario);
+                
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"[UsuarioBusiness - AutenticarUsuario] - {ex.Message}", ex);
+            }
         }
     }
 }
