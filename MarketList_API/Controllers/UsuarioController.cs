@@ -1,9 +1,7 @@
 using System;
-using System.Net;
 using System.Threading.Tasks;
 using MarketList_Business;
 using MarketList_Model;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketList_API.Controllers
