@@ -18,7 +18,7 @@ namespace MarketList_Business
         {
             try
             {
-                if (string.IsNullOrEmpty(InformacaoAutenticacaoUsuario.SSenha) && string.IsNullOrEmpty(InformacaoAutenticacaoUsuario.SUsuario))
+                if (string.IsNullOrEmpty(InformacaoAutenticacaoUsuario.Senha) && string.IsNullOrEmpty(InformacaoAutenticacaoUsuario.Usuario))
                     return null;
 
                 return await _usuarioRepository.AutenticarUsuario(InformacaoAutenticacaoUsuario);

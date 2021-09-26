@@ -19,6 +19,9 @@ namespace MarketList_Model
         [StringLength(2, MinimumLength = 1, ErrorMessage = "O nome deve ter no mínimo 1 e no máximo 2 caracter.")]
         public string SUnidadeMedida { get; set; }
 
+        public int NIdUnidade { get; set; }
+        
+        public virtual Unidade Unidade { get; set; }
 
         public virtual Sessao Sessao { get; set; }
         public virtual ICollection<ItemLista> ItemLista { get; set; }
