@@ -5,6 +5,6 @@ namespace MarketList_Business
 {
     public interface IUsuarioBusiness : IBaseBusiness<Usuario>
     { 
-        Task<UsuarioAutenticadoViewModel> AutenticarUsuario(InformacaoAutenticacaoUsuarioDTO informacaoAutenticacaoUsuario);
+        Task<UsuarioAutenticadoVM> AutenticarUsuario(InformacaoAutenticacaoUsuarioDTO informacaoAutenticacaoUsuario);
      }
 }

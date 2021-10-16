@@ -4,8 +4,8 @@ using MarketList_Model;
 
 namespace MarketList_Repository
 {
-    public interface IItemRepository : IBaseRepository<Item>
+    public interface IListaRepository : IBaseRepository<Lista>
     {
-        Task<List<ItemVM>> GetItemPorUnidade(int unidadeId);
+        Task<List<ListaDTO>> GetListaPorUnidadeId(int unidadeId);
     }
 }

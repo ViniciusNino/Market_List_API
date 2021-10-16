@@ -12,7 +12,7 @@ namespace MarketList_Business
         {
             _iItemRepository = iItemRepository;
         }
-        public async Task<List<ItemViewModel>> GetItemPorUnidade(int unidadeId)
+        public async Task<List<ItemVM>> GetItemPorUnidade(int unidadeId)
         {
             return await _iItemRepository.GetItemPorUnidade(unidadeId);
         }

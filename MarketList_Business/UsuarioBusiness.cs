@@ -14,7 +14,7 @@ namespace MarketList_Business
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<UsuarioAutenticadoViewModel> AutenticarUsuario(InformacaoAutenticacaoUsuarioDTO InformacaoAutenticacaoUsuario)
+        public async Task<UsuarioAutenticadoVM> AutenticarUsuario(InformacaoAutenticacaoUsuarioDTO InformacaoAutenticacaoUsuario)
         {
             try
             {

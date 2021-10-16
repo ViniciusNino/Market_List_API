@@ -1,6 +1,6 @@
 namespace MarketList_Model
 {
-    public class ItemViewModel
+    public class ItemDTO
     {
         public int Id { get; set; }
         
