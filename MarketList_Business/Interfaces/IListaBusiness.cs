@@ -4,8 +4,8 @@ using MarketList_Model;
 
 namespace MarketList_Business
 {
-    public interface IItemBusiness : IBaseBusiness<Item>
+    public interface IListaBusiness : IBaseBusiness<Lista>
     {
-        Task<List<ItemVM>> GetItemPorUnidade(int unidadeId);
+        Task<List<ListaDTO>> GetListaPorUnidadeId(int unidadeId);
     }
 }

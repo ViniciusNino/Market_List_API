@@ -1,6 +1,6 @@
 namespace MarketList_Model
 {
-    public class UsuarioAutenticadoViewModel
+    public class UsuarioAutenticadoVM
     {
         public int Id { get; set; }
 

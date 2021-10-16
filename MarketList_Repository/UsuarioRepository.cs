@@ -16,7 +16,7 @@ namespace MarketList_Repository
             _context = context;
         }
 
-        public async Task<UsuarioAutenticadoViewModel> AutenticarUsuario(InformacaoAutenticacaoUsuarioDTO informacaoAutenticacaoUsuario)
+        public async Task<UsuarioAutenticadoVM> AutenticarUsuario(InformacaoAutenticacaoUsuarioDTO informacaoAutenticacaoUsuario)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace MarketList_Repository
                     return await _context.Usuario
                         .Where(x => x.SSenha == informacaoAutenticacaoUsuario.Senha && x.SUsuario == informacaoAutenticacaoUsuario.Usuario)
                         .Join(_context.Unidade, us => us.NIdUnidade, un => un.Id, (us, un) =>
-                        new UsuarioAutenticadoViewModel
+                        new UsuarioAutenticadoVM
                         {
                             Nome = us.SUsuario,
                             UnidadeId = us.NIdUnidade,

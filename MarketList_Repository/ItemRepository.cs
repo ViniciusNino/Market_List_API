@@ -17,14 +17,14 @@ namespace MarketList_Repository
             _context = context;
         }
 
-        public async Task<List<ItemViewModel>> GetItemPorUnidade(int unidadeId)
+        public async Task<List<ItemVM>> GetItemPorUnidade(int unidadeId)
         {
             try
             {
                 using (_context)
                 {
                     return await _context.Item.Where(x => x.NIdUnidade == unidadeId).Select(item => 
-                        new ItemViewModel
+                        new ItemVM
                         { 
                             Id = item.Id,
                             Nome = item.SNome,

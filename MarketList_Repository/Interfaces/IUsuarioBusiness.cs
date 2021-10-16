@@ -5,6 +5,6 @@ namespace MarketList_Repository
 {
     public interface IUsuarioRepository : IBaseRepository<Usuario>
     {
-        Task<UsuarioAutenticadoViewModel> AutenticarUsuario(InformacaoAutenticacaoUsuarioDTO InformacaoAutenticacaoUsuario);
+        Task<UsuarioAutenticadoVM> AutenticarUsuario(InformacaoAutenticacaoUsuarioDTO InformacaoAutenticacaoUsuario);
     }
 }

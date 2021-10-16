@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
@@ -24,6 +25,8 @@ namespace MarketList_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json");
@@ -43,6 +46,11 @@ namespace MarketList_API
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
             services.AddTransient<IItemBusiness, ItemBusiness>();
             services.AddTransient<IItemRepository, ItemRepository>();
+            services.AddTransient<IListaBusiness, ListaBusiness>();
+            services.AddTransient<IListaRepository, ListaRepository>();
+            services.AddTransient<IItemListaBusiness, ItemListaBusiness>();
+            services.AddTransient<IItemListaRepository, ItemListaRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
