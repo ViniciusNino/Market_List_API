@@ -26,9 +26,11 @@ namespace MarketList_Repository
                     .Join(_context.Item, il => il.NIdItem, i => i.Id, (il, i) =>
                     new ItemListaDTO
                     {
-                        sNome = i.SNome,
-                        nQuantidade = il.NQuantidade,
-                        sUnidadeMedida = il.SUnidadeMedida
+                        Nome = i.SNome,
+                        Quantidade = il.NQuantidade,
+                        UnidadeMedida = il.SUnidadeMedida,
+                        Id = il.NIdItem,
+                        ListaId = il.NIdLista
                     }).ToListAsync();
                 }
             }

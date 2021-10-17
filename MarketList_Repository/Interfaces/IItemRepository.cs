@@ -6,6 +6,6 @@ namespace MarketList_Repository
 {
     public interface IItemRepository : IBaseRepository<Item>
     {
-        Task<List<ItemVM>> GetItemPorUnidade(int unidadeId);
+        Task<List<ItemDTO>> GetItemPorUnidade(int unidadeId);
     }
 }

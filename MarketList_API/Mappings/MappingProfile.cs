@@ -4,9 +4,9 @@ using MarketList_Model;
 
 namespace MarketList_API
 {
-    public class MappingPProfile : Profile 
+    public class MappingProfile : Profile 
     {
-        public MappingPProfile()
+        public MappingProfile()
         {
             CreateMap<ItemDTO, ItemVM>();
             CreateMap<ListaDTO, ListaVM>(); 

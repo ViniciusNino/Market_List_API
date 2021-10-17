@@ -25,10 +25,10 @@ namespace MarketList_Repository
                     return await _contexto.Lista.Where(x => x.NIdUnidade == unidadeId && x.BAtivo == true)
                                 .Join(_contexto.Usuario, l => l.NIdUsuario, us => us.Id, (l, us) =>
                                 new ListaDTO{
-                                    dCadastro = l.DCadastro,
-                                    nIdLista = l.Id,
-                                    sNome = l.SNome,
-                                    sNomeUsuario = us.SUsuario
+                                    Cadastro = l.DCadastro,
+                                    Id = l.Id,
+                                    Nome = l.SNome,
+                                    NomeUsuario = us.SUsuario
                                 }).ToListAsync();
                 }                
             }
