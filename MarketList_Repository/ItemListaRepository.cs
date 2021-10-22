@@ -29,8 +29,9 @@ namespace MarketList_Repository
                         Nome = i.SNome,
                         Quantidade = il.NQuantidade,
                         UnidadeMedida = il.SUnidadeMedida,
-                        Id = il.NIdItem,
-                        ListaId = il.NIdLista
+                        Id = il.Id,
+                        ListaId = il.NIdLista,
+                        ItemId = il.NIdItem
                     }).ToListAsync();
                 }
             }
