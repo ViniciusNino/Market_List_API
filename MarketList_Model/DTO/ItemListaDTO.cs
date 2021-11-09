@@ -6,6 +6,8 @@ namespace MarketList_Model
      
         public int ListaId { get; set; }
 
+        public int UsuarioLogadoId { get; set; }
+
         public int ItemId { get; set; }
 
         public string Nome { get; set; }

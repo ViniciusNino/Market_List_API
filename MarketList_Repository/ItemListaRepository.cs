@@ -28,7 +28,7 @@ namespace MarketList_Repository
                     {
                         Nome = i.SNome,
                         Quantidade = il.NQuantidade,
-                        UnidadeMedida = il.SUnidadeMedida,
+                        UnidadeMedida = i.SUnidadeMedida,
                         Id = il.Id,
                         ListaId = il.NIdLista,
                         ItemId = il.NIdItem

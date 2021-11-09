@@ -35,6 +35,6 @@ namespace MarketList_API.Controllers
             {
                 throw new Exception($"[ItemListaController - GetItensListaPorListaId] - {ex.Message}", ex);
             }
-        }
+        }       
     }
 }
