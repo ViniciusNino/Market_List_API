@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MarketList_Business;
 using MarketList_Model;
+using MarketList_Model.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketList_API.Controllers
@@ -35,6 +36,23 @@ namespace MarketList_API.Controllers
             {
                 throw new Exception($"[ItemListaController - GetItensListaPorListaId] - {ex.Message}", ex);
             }
-        }       
+        }   
+
+        
+        [HttpPost]
+        [Route("Atualizar")]
+        public async Task<IActionResult> UpdateLista(ListaAtualizarDTO listaAtualizarDto)
+        {
+            try
+            {
+                var response = await _itemListaBussiness.AtualizarItensLista(listaAtualizarDto);
+                
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"[ItemListaController - UpdateLista] - {ex.Message}", ex);
+            }
+        }    
     }
 }

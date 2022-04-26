@@ -16,6 +16,7 @@ namespace MarketList_Repository
         {
             _context = context;
         }
+       
         public async Task<List<ItemListaDTO>> GetGetItensListaPorListaId(int listaId)
         {
             try
@@ -38,6 +39,37 @@ namespace MarketList_Repository
             catch (Exception ex)
             {
                 throw new Exception($"[ItemListaRepository - GetGetItensListaPorListaId] - {ex.Message}", ex);
+            }
+        }
+
+        public async Task<List<ItemLista>> ListarItensListaAtualizar(List<int?> idsAtualizar)
+        {
+            try
+            {
+                    return await _context.ItemLista.Where(x => idsAtualizar.Contains(x.Id)).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"[ItemListaRepository - ListarItensListaAtualizar] - {ex.Message}", ex);
+            }
+        }
+
+        public async Task<int> AtualizarItensLista(List<ItemLista> itensAtualizar, List<int?> idsExcluir)
+        {
+             try
+            {
+                    var itensAdd = itensAtualizar.Where(x => x.Id == 0).ToList();
+                    var itensAtt = itensAtualizar.Where(x => x.Id != 0).ToList();
+                    
+                    await _context.AddRangeAsync(itensAdd);
+                    _context.UpdateRange(itensAtt);
+                    _context.ItemLista.RemoveRange(_context.ItemLista.Where(x => idsExcluir.Contains(x.Id)));
+
+                    return await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"[ItemListaRepository - AtualizarItensLista] - {ex.Message}", ex);
             }
         }
     }

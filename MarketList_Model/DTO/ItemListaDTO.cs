@@ -15,5 +15,7 @@ namespace MarketList_Model
         public string UnidadeMedida { get; set; }
         
         public decimal Quantidade { get; set; }
+
+        public int StatusItemListaId { get; set; }
     }
 }
