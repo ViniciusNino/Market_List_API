@@ -9,7 +9,6 @@ namespace MarketList_Model
         public int NIdLista { get; set; }
         public int NIdItem { get; set; }
         public decimal NQuantidade { get; set; }
-        public string SUnidadeMedida { get; set; }
         public DateTime DCadastro { get; set; }
         public bool BAtivo { get; set; }
         public int NIdStatusItemLista { get; set; }
@@ -30,5 +29,10 @@ namespace MarketList_Model
 
         [NotMapped]
         public virtual Usuario UsuarioSolicitante { get; set; }
+    }
+
+    public enum EStatusItemLista
+    {
+        Solicitado = 1
     }
 }

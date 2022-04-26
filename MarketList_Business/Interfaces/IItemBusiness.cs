@@ -6,6 +6,6 @@ namespace MarketList_Business
 {
     public interface IItemBusiness : IBaseBusiness<Item>
     {
-        Task<List<ItemVM>> GetItemPorUnidade(int unidadeId);
+        Task<List<ItemDTO>> GetItemPorUnidade(int unidadeId);
     }
 }

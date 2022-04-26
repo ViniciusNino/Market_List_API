@@ -30,11 +30,28 @@ namespace MarketList_API.Controllers
             {
                 var listas = await _listaBusiness.GetListaPorUnidadeId(unidadeId);
                 var listaVM = _mapper.Map<List<ListaVM>>(listas);
+                
                 return Ok(listaVM);
             }
             catch (Exception ex)
             {
                 throw new Exception("[ListaController/GetListaPorUnidadeId] - " + ex.Message, ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("SalvarLista")]
+        public async Task<IActionResult> SetLista(SalvarListaDTO lista)
+        {
+            try
+            {
+                var retorno = await _listaBusiness.SetLista(lista);
+
+                return Ok(retorno);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("[ListaController/SetLista] - " + ex.Message, ex);
             }
         }
     }

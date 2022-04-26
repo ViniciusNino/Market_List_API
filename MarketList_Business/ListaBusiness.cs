@@ -13,9 +13,14 @@ namespace MarketList_Business
         {
             _listaRepository = listaReposytory;
         }
-        public Task<List<ListaDTO>> GetListaPorUnidadeId(int unidadeId)
+        public async Task<List<ListaDTO>> GetListaPorUnidadeId(int unidadeId)
         {
-            return _listaRepository.GetListaPorUnidadeId(unidadeId);
+            return await _listaRepository.GetListaPorUnidadeId(unidadeId);
+        }
+
+        public async Task<bool> SetLista(SalvarListaDTO lista)
+        {
+            return await _listaRepository.SetLista(lista);
         }
     }
 }

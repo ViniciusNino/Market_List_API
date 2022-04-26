@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using MarketList_Business;
+using MarketList_Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketList_API.Controllers
@@ -11,9 +14,12 @@ namespace MarketList_API.Controllers
     {
         private readonly IItemBusiness _itemBusiness;
 
-        public ItemController(IItemBusiness itemBusiness)
+        private readonly IMapper _mapper;
+
+        public ItemController(IItemBusiness itemBusiness, IMapper mapper)
         {
             _itemBusiness = itemBusiness;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -22,8 +28,9 @@ namespace MarketList_API.Controllers
         {
             try
             {
-                var listaItem = await _itemBusiness.GetItemPorUnidade(unidadeId);
-                return Ok(listaItem);
+                var itensDTO = await _itemBusiness.GetItemPorUnidade(unidadeId);
+                var itensVM = _mapper.Map<List<ItemVM>>(itensDTO);
+                return Ok(itensVM);
             }
             catch (Exception ex)
             {

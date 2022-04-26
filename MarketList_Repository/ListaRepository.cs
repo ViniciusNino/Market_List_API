@@ -25,10 +25,10 @@ namespace MarketList_Repository
                     return await _contexto.Lista.Where(x => x.NIdUnidade == unidadeId && x.BAtivo == true)
                                 .Join(_contexto.Usuario, l => l.NIdUsuario, us => us.Id, (l, us) =>
                                 new ListaDTO{
-                                    dCadastro = l.DCadastro,
-                                    nIdLista = l.Id,
-                                    sNome = l.SNome,
-                                    sNomeUsuario = us.SUsuario
+                                    Cadastro = l.DCadastro,
+                                    Id = l.Id,
+                                    Nome = l.SNome,
+                                    NomeUsuario = us.SUsuario
                                 }).ToListAsync();
                 }                
             }
@@ -36,6 +36,59 @@ namespace MarketList_Repository
             {
                 throw new Exception("[ListaRepository - GetListaPorUnidadeId] - " + ex.Message, ex);
             }
+        }
+
+        public async Task<bool> SetLista(SalvarListaDTO listaDTO)
+        {
+           try
+           {
+               using (_contexto)
+               {
+                    var listaBanco = MontarListaParaSalvar(listaDTO);                    
+                    await _contexto.Lista.AddAsync(listaBanco);
+                    var retorno = await _contexto.SaveChangesAsync();
+
+                    var itensLista = MontarItensListaParaSalvar(listaDTO.ItensLista, listaBanco);
+                    await _contexto.ItemLista.AddRangeAsync(itensLista);
+                    retorno += await _contexto.SaveChangesAsync();
+                    
+
+                    return retorno > 2 ? true : false;
+               }
+           }
+           catch (Exception ex)
+           {
+                throw new Exception("[ListaRepository/SetLista] - " + ex.Message, ex);
+           }
+        }
+
+        private List<ItemLista> MontarItensListaParaSalvar(List<ItemListaDTO> itensLista, Lista lista)
+        {
+            var itensListaBanco = new List<ItemLista>();
+            itensLista.ForEach(x => itensListaBanco.Add(new ItemLista
+            {
+                BAtivo = true,
+                DCadastro = DateTime.Now,
+                NIdLista = lista.Id,
+                NIdItem = x.ItemId,
+                NQuantidade = x.Quantidade,
+                NIdUsuarioSolicitante = x.UsuarioLogadoId,
+                NIdStatusItemLista = (int)EStatusItemLista.Solicitado
+            }));
+
+            return itensListaBanco;
+        }
+
+        private Lista MontarListaParaSalvar(SalvarListaDTO lista)
+        {
+            return new Lista
+            {
+                BAtivo = true,
+                DCadastro = DateTime.Now,
+                NIdUnidade = lista.UnidadeId,
+                NIdUsuario = lista.UsuarioId,
+                SNome = lista.Nome
+            };
         }
     }
 }
