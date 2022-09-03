@@ -7,5 +7,6 @@ namespace MarketList_Repository
     public interface IListaRepository : IBaseRepository<Lista>
     {
         Task<List<ListaDTO>> GetListaPorUnidadeId(int unidadeId);
+        Task<bool> SetLista(SalvarListaDTO lista);
     }
 }

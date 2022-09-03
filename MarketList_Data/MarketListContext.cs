@@ -81,11 +81,6 @@ namespace MarketList_Data
                     .HasColumnName("nQuantidade")
                     .HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.SUnidadeMedida)
-                    .HasColumnName("sUnidadeMedida")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.HasOne(d => d.Item)
                     .WithMany(p => p.ItemLista)
                     .HasForeignKey(d => d.NIdItem)
