@@ -36,6 +36,7 @@ namespace MarketList_API.Controllers
             {
                 return BadRequest(ex);
             }
+            
         }
     }
 }
