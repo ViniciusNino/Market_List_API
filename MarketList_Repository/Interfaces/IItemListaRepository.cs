@@ -9,5 +9,6 @@ namespace MarketList_Repository
         Task<List<ItemListaDTO>> GetGetItensListaPorListaId(int listaId);
         Task<List<ItemLista>> ListarItensListaAtualizar(List<int?> idsAtualizar);
         Task<int> AtualizarItensLista(List<ItemLista> itensAtualizar, List<int?> idsExcluir);
+        Task<int> DeletarItensLista(int listaId);
     }
 }

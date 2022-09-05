@@ -50,6 +50,8 @@ namespace MarketList_API
             services.AddTransient<IListaRepository, ListaRepository>();
             services.AddTransient<IItemListaBusiness, ItemListaBusiness>();
             services.AddTransient<IItemListaRepository, ItemListaRepository>();
+            services.AddTransient<IUnidadeBusiness, UnidadeBusiness>();
+            services.AddTransient<IUnidadeRepository, UnidadeRepository>();
 
         }
 
@@ -71,7 +73,7 @@ namespace MarketList_API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

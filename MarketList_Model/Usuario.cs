@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System;
 using System.Collections.Generic;
 
 namespace MarketList_Model
@@ -18,16 +17,12 @@ namespace MarketList_Model
         public string SSenha { get; set; }
         public int NIdPerfilUsuario { get; set; }
         public int NIdStatusUsuario { get; set; }
-        public int NIdUnidade { get; set; }
 
         [NotMapped]
         public virtual PerfilUsuario PerfilUsuario { get; set; }
 
         [NotMapped]
         public virtual StatusUsuario StatusUsuario { get; set; }
-
-        [NotMapped]
-        public virtual Unidade Unidade { get; set; }
 
         [NotMapped]
         public virtual ICollection<ItemLista> ItemListaNIdUsuarioCompradorNavigation { get; set; }

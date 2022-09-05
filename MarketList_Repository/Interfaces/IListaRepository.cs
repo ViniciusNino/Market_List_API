@@ -8,5 +8,6 @@ namespace MarketList_Repository
     {
         Task<List<ListaDTO>> GetListaPorUnidadeId(int unidadeId);
         Task<bool> SetLista(SalvarListaDTO lista);
+        Task<int> DeleteLista(int listaId);
     }
 }

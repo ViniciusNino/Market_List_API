@@ -90,5 +90,11 @@ namespace MarketList_Repository
                 SNome = lista.Nome
             };
         }
+
+        public async Task<int> DeleteLista(int listaId) 
+        {
+            _contexto.Lista.Remove(_contexto.Lista.Where(x => x.Id == listaId).FirstOrDefault());
+            return await _contexto.SaveChangesAsync();
+        }
     }
 }

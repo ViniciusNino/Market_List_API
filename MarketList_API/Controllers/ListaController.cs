@@ -54,5 +54,21 @@ namespace MarketList_API.Controllers
                 throw new Exception("[ListaController/SetLista] - " + ex.Message, ex);
             }
         }
+
+        [HttpDelete]
+        [Route("Deletar/{listaId}")]
+        public async Task<IActionResult> DeleteLista(int listaId)
+        {
+            try
+            {
+                var retorno = await _listaBusiness.DeleteLista(listaId);
+
+                return Ok(retorno);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("[ListaController/SetLista] - " + ex.Message, ex);
+            }
+        }
     }
 }

@@ -72,5 +72,19 @@ namespace MarketList_Repository
                 throw new Exception($"[ItemListaRepository - AtualizarItensLista] - {ex.Message}", ex);
             }
         }
+
+        public async Task<int> DeletarItensLista(int listaId)
+        {
+            try
+            {
+                _context.RemoveRange(_context.ItemLista.Where(x => x.NIdLista == listaId));
+                return await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                
+                throw new Exception($"[ItemListaRepository - DeletarItensLista] - {ex.Message}", ex);;
+            }
+        }
     }
 }

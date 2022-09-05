@@ -1,9 +1,5 @@
-﻿using System;
-using System.IO;
-using MarketList_Model;
+﻿using MarketList_Model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 
 namespace MarketList_Data
 {
@@ -26,6 +22,7 @@ namespace MarketList_Data
         public virtual DbSet<StatusUsuario> StatusUsuario { get; set; }
         public virtual DbSet<Unidade> Unidade { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<UsuarioUnidade> UsuarioUnidade { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -220,7 +217,6 @@ namespace MarketList_Data
 
                 entity.Property(e => e.NIdStatusUsuario).HasColumnName("nIdStatusUsuario");
 
-                entity.Property(e => e.NIdUnidade).HasColumnName("nIdUnidade");
 
                 entity.Property(e => e.SSenha)
                     .IsRequired()
@@ -234,12 +230,6 @@ namespace MarketList_Data
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Unidade)
-                    .WithMany(p => p.Usuario)
-                    .HasForeignKey(d => d.NIdUnidade)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Usuario_Unidade");
-
                 entity.HasOne(d => d.PerfilUsuario)
                     .WithMany(p => p.Usuario)
                     .HasForeignKey(d => d.NIdPerfilUsuario)
@@ -250,7 +240,7 @@ namespace MarketList_Data
                     .WithMany(p => p.Usuario)
                     .HasForeignKey(d => d.NIdStatusUsuario)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Usuario_StatusUsuario");        
+                    .HasConstraintName("FK_Usuario_StatusUsuario");
             });
 
             OnModelCreatingPartial(modelBuilder);
