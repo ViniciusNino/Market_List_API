@@ -30,7 +30,7 @@ namespace MarketList_API.Controllers
             {
                 var listas = await _listaBusiness.GetListaPorUnidadeId(unidadeId);
                 var listaVM = _mapper.Map<List<ListaVM>>(listas);
-                
+
                 return Ok(listaVM);
             }
             catch (Exception ex)
@@ -52,6 +52,28 @@ namespace MarketList_API.Controllers
             catch (Exception ex)
             {
                 throw new Exception("[ListaController/SetLista] - " + ex.Message, ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("Agrupar")]
+        public async Task<IActionResult> SetAgrupado(AgrupadorListasDTO agrupado)
+        {
+            try
+            {
+                var retorno = await _listaBusiness.SetAgrupado(agrupado); ;
+
+                return Ok(retorno);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+                // {
+                //     mensagem = "Ocorreu um erro ao buscar as Unidades e lista. Tente novamente mais tarde.",
+                //     referencia = ex.Message,
+                //     stack = ex.StackTrace,
+                //     innerExcpetion = ex.InnerException == null ? ex.Message : ex.InnerException.Message
+                // });
             }
         }
 

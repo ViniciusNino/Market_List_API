@@ -30,7 +30,7 @@ namespace MarketList_Business
                     {
                         Id = y.Key.Id,
                         Nome = y.Key.Nome,
-                        Lista = unidadesDto.Where(x => x.Id == y.Key.Id)
+                        Listas = unidadesDto.Where(x => x.Id == y.Key.Id)
                                         .Select(x => new ListaVM
                                         {
                                             Id = x.ListaId,

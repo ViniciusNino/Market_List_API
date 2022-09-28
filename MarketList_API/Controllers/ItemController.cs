@@ -23,6 +23,13 @@ namespace MarketList_API.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Status(int unidadeId)
+        {
+            return Ok("ok");
+
+        }
+
+        [HttpGet]
         [Route("GetUnidade")]
         public async Task<IActionResult> GetItemPorUnidade(int unidadeId)
         {
@@ -36,7 +43,7 @@ namespace MarketList_API.Controllers
             {
                 return BadRequest(ex);
             }
-            
+
         }
     }
 }

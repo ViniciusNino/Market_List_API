@@ -9,5 +9,6 @@ namespace MarketList_Business
         Task<List<ListaDTO>> GetListaPorUnidadeId(int unidadeId);
         Task<bool> SetLista(SalvarListaDTO lista);
         Task<bool> DeleteLista(int listaId);
+        Task<bool> SetAgrupado(AgrupadorListasDTO agrupado);
     }
 }

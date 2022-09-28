@@ -16,7 +16,7 @@ namespace MarketList_Repository
         {
             _context = context;
         }
-       
+
         public async Task<List<ItemListaDTO>> GetGetItensListaPorListaId(int listaId)
         {
             try
@@ -46,7 +46,7 @@ namespace MarketList_Repository
         {
             try
             {
-                    return await _context.ItemLista.Where(x => idsAtualizar.Contains(x.Id)).ToListAsync();
+                return await _context.ItemLista.Where(x => idsAtualizar.Contains(x.Id)).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -56,20 +56,37 @@ namespace MarketList_Repository
 
         public async Task<int> AtualizarItensLista(List<ItemLista> itensAtualizar, List<int?> idsExcluir)
         {
-             try
+            try
             {
-                    var itensAdd = itensAtualizar.Where(x => x.Id == 0).ToList();
-                    var itensAtt = itensAtualizar.Where(x => x.Id != 0).ToList();
-                    
-                    await _context.AddRangeAsync(itensAdd);
-                    _context.UpdateRange(itensAtt);
-                    _context.ItemLista.RemoveRange(_context.ItemLista.Where(x => idsExcluir.Contains(x.Id)));
+                var itensAdd = itensAtualizar.Where(x => x.Id == 0).ToList();
+                var itensAtt = itensAtualizar.Where(x => x.Id != 0).ToList();
 
-                    return await _context.SaveChangesAsync();
+                await _context.AddRangeAsync(itensAdd);
+                _context.UpdateRange(itensAtt);
+                _context.ItemLista.RemoveRange(_context.ItemLista.Where(x => idsExcluir.Contains(x.Id)));
+
+                return await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 throw new Exception($"[ItemListaRepository - AtualizarItensLista] - {ex.Message}", ex);
+            }
+        }
+
+        public async Task<int> SalvarItensLista(List<ItemLista> itensLista)
+        {
+            try
+            {
+                using (_context)
+                {
+                    await _context.ItemLista.AddRangeAsync(itensLista);
+
+                    return await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("[ListaRepository/SetLista] - " + ex.Message, ex);
             }
         }
 
@@ -82,8 +99,8 @@ namespace MarketList_Repository
             }
             catch (Exception ex)
             {
-                
-                throw new Exception($"[ItemListaRepository - DeletarItensLista] - {ex.Message}", ex);;
+
+                throw new Exception($"[ItemListaRepository - DeletarItensLista] - {ex.Message}", ex); ;
             }
         }
     }

@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using MarketList_Business;
 using MarketList_Repository;
 using MarketList_Data;
+using MedPlannerCore.Data.Utils;
 
 namespace MarketList_API
 {
@@ -40,7 +41,8 @@ namespace MarketList_API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MarketList_API", Version = "v1" });
             });
 
-            services.AddDbContext<MarketListContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            // services.AddDbContext<MarketListContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionMSSQL")));
+            services.AddDbContext<MarketListContext>(options => options.UseNpgsql(Common.GetSettings("DefaultConnectionPGSQL")).UseLazyLoadingProxies());
 
             services.AddTransient<IUsuarioBusiness, UsuarioBusiness>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();

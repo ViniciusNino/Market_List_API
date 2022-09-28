@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MarketList_Data;
 using MarketList_Model;
 
 namespace MarketList_Repository
@@ -10,5 +11,6 @@ namespace MarketList_Repository
         Task<List<ItemLista>> ListarItensListaAtualizar(List<int?> idsAtualizar);
         Task<int> AtualizarItensLista(List<ItemLista> itensAtualizar, List<int?> idsExcluir);
         Task<int> DeletarItensLista(int listaId);
+        Task<int> SalvarItensLista(List<ItemLista> itensLista);
     }
 }

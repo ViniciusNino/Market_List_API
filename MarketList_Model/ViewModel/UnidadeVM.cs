@@ -5,5 +5,5 @@ public class UnidadeVM
 {
     public int Id { get; set; }
     public string Nome { get; set; }
-    public List<ListaVM> Lista { get; set; }
+    public List<ListaVM> Listas { get; set; }
 }
