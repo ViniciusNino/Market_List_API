@@ -7,17 +7,12 @@ namespace MarketList_Model
 {
     public partial class ListaAgrupadorListas : ModelBase
     {
-        public ListaAgrupadorListas()
-        {
-            InverseNIdAgrupadorListasNavigation = new HashSet<ListaAgrupadorListas>();
-        }
-
         public int NIdAgrupadorListas { get; set; }
         public int NIdLista { get; set; }
 
         [NotMapped]
-        public virtual ListaAgrupadorListas NIdAgrupadorListasNavigation { get; set; }
+        public virtual AgrupadorListas AgrupadorListas { get; set; }
         [NotMapped]
-        public virtual ICollection<ListaAgrupadorListas> InverseNIdAgrupadorListasNavigation { get; set; }
+        public virtual Lista Lista { get; set; }
     }
 }

@@ -11,9 +11,9 @@ namespace MarketList_Model
         public int NIdStatus { get; set; }
         public DateTime DCadastro { get; set; }
         [NotMapped]
-        public virtual Usuario Usuario { get; set; }
-        [NotMapped]
         public virtual Status Status { get; set; }
+        [NotMapped]
+        public virtual Usuario Usuario { get; set; }
     }
 
     public enum StatusAgrupadoEnum

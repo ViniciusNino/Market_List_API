@@ -54,7 +54,7 @@ namespace MarketList_Business
                 NIdItem = x.ItemId,
                 NQuantidade = x.Quantidade,
                 NIdUsuarioSolicitante = x.UsuarioLogadoId,
-                NIdStatusItemLista = (int)EStatusItemLista.Solicitado
+                NIdStatus = (int)EStatusItemLista.Solicitado
             }));
 
             return itensListaBanco;

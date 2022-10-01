@@ -9,17 +9,10 @@ namespace MarketList_Model
 {
     public partial class Status : ModelBase
     {
-        public Status()
-        {
-            AgrupadorListas = new HashSet<AgrupadorListas>();
-        }
-
         public int NIdArea { get; set; }
         public string SDescricao { get; set; }
 
         [NotMapped]
-        public virtual Area NIdAreaNavigation { get; set; }
-        [NotMapped]
-        public virtual ICollection<AgrupadorListas> AgrupadorListas { get; set; }
+        public virtual Area Area { get; set; }
     }
 }

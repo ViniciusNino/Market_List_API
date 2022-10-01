@@ -40,15 +40,15 @@ namespace MarketList_Business
             var intesAdd = new List<ItemLista>();
 
             foreach (var item in itensAddDto)
-            {   
-                var  itemAdd = new ItemLista() 
+            {
+                var itemAdd = new ItemLista()
                 {
                     BAtivo = true,
                     DCadastro = DateTime.Now,
                     NIdLista = listaAtualizarDto.ListaId,
                     NIdItem = item.ItemId ?? 0,
                     NQuantidade = item.Quantidade ?? 0,
-                    NIdStatusItemLista = 1, 
+                    NIdStatus = 1,
                     NIdUsuarioSolicitante = listaAtualizarDto.UsuarioLogadoId
                 };
 

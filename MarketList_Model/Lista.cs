@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MarketList_Model
 {
@@ -15,9 +16,11 @@ namespace MarketList_Model
         public bool BAtivo { get; set; }
         public DateTime DCadastro { get; set; }
         public string SNome { get; set; }
-
-        public virtual Unidade Unidade { get; set; } 
+        [NotMapped]
+        public virtual Unidade Unidade { get; set; }
+        [NotMapped]
         public virtual Usuario Usuario { get; set; }
+        [NotMapped]
         public virtual ICollection<ItemLista> ItemLista { get; set; }
     }
 }

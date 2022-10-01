@@ -11,6 +11,7 @@ using MarketList_Business;
 using MarketList_Repository;
 using MarketList_Data;
 using MedPlannerCore.Data.Utils;
+using Microsoft.AspNetCore.Identity;
 
 namespace MarketList_API
 {
@@ -43,6 +44,8 @@ namespace MarketList_API
 
             // services.AddDbContext<MarketListContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionMSSQL")));
             services.AddDbContext<MarketListContext>(options => options.UseNpgsql(Common.GetSettings("DefaultConnectionPGSQL")).UseLazyLoadingProxies());
+            // services.AddIdentity<IdentityUser<int>, IdentityRole<int>>()
+            // .AddEntityFrameworkStores<MarketListContext>();
 
             services.AddTransient<IUsuarioBusiness, UsuarioBusiness>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
