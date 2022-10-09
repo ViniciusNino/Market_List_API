@@ -10,6 +10,9 @@ using Microsoft.OpenApi.Models;
 using MarketList_Business;
 using MarketList_Repository;
 using MarketList_Data;
+using MedPlannerCore.Data.Utils;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace MarketList_API
 {
@@ -40,7 +43,7 @@ namespace MarketList_API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MarketList_API", Version = "v1" });
             });
 
-            services.AddDbContext<MarketListContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<MarketListContext>(options => options.UseNpgsql(Common.GetSettings("DefaultConnectionPGSQL")).UseLazyLoadingProxies());
 
             services.AddTransient<IUsuarioBusiness, UsuarioBusiness>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
@@ -50,7 +53,8 @@ namespace MarketList_API
             services.AddTransient<IListaRepository, ListaRepository>();
             services.AddTransient<IItemListaBusiness, ItemListaBusiness>();
             services.AddTransient<IItemListaRepository, ItemListaRepository>();
-
+            services.AddTransient<IUnidadeBusiness, UnidadeBusiness>();
+            services.AddTransient<IUnidadeRepository, UnidadeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,7 +75,7 @@ namespace MarketList_API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -82,6 +86,7 @@ namespace MarketList_API
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MarketList_API v1"));
 
+            app.Run(c => c.Response.WriteAsync("Market List"));
         }
     }
 }

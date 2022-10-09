@@ -1,5 +1,5 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 
 namespace MarketList_Model
@@ -9,31 +9,28 @@ namespace MarketList_Model
         public Usuario()
         {
             PerfilUsuario = new PerfilUsuario();
-            StatusUsuario = new StatusUsuario();
-            ItemListaNIdUsuarioCompradorNavigation = new HashSet<ItemLista>();
-            ItemListaNIdUsuarioSolicitanteNavigation = new HashSet<ItemLista>();
+            Status = new Status();
+            ItemListaComprador = new HashSet<ItemLista>();
+            ItemListaSolicitante = new HashSet<ItemLista>();
             Lista = new HashSet<Lista>();
         }
         public string SUsuario { get; set; }
         public string SSenha { get; set; }
         public int NIdPerfilUsuario { get; set; }
-        public int NIdStatusUsuario { get; set; }
-        public int NIdUnidade { get; set; }
+        public int NIdStatus { get; set; }
+        public DateTime DCadastro { get; set; }
 
         [NotMapped]
         public virtual PerfilUsuario PerfilUsuario { get; set; }
 
         [NotMapped]
-        public virtual StatusUsuario StatusUsuario { get; set; }
+        public virtual Status Status { get; set; }
 
         [NotMapped]
-        public virtual Unidade Unidade { get; set; }
+        public virtual ICollection<ItemLista> ItemListaComprador { get; set; }
 
         [NotMapped]
-        public virtual ICollection<ItemLista> ItemListaNIdUsuarioCompradorNavigation { get; set; }
-
-        [NotMapped]
-        public virtual ICollection<ItemLista> ItemListaNIdUsuarioSolicitanteNavigation { get; set; }
+        public virtual ICollection<ItemLista> ItemListaSolicitante { get; set; }
 
         [NotMapped]
         public virtual ICollection<Lista> Lista { get; set; }

@@ -12,7 +12,7 @@ namespace MarketList_Repository
         private readonly MarketListContext _context;
 
         public UsuarioRepository(MarketListContext context) : base(context)
-        { 
+        {
             _context = context;
         }
 
@@ -22,17 +22,20 @@ namespace MarketList_Repository
             {
                 using (_context)
                 {
+
                     return await _context.Usuario
-                        .Where(x => x.SSenha == informacaoAutenticacaoUsuario.Senha && x.SUsuario == informacaoAutenticacaoUsuario.Usuario)
-                        .Join(_context.Unidade, us => us.NIdUnidade, un => un.Id, (us, un) =>
-                        new UsuarioAutenticadoVM
+                        .Join(_context.UsuarioUnidade, us => us.Id, usun => usun.NIdUsuario, (us, usun) => new { us, usun })
+                        .Join(_context.Unidade, usun => usun.usun.NIdUnidade, un => un.Id, (usun, un) => new { usun, un })
+                        .Where(x => x.usun.us.SSenha == informacaoAutenticacaoUsuario.Senha && x.usun.us.SUsuario == informacaoAutenticacaoUsuario.Usuario)
+                        .Select(usuario => new UsuarioAutenticadoVM
                         {
-                            Nome = us.SUsuario,
-                            UnidadeId = us.NIdUnidade,
-                            Id = us.Id,
-                            PerfilId = us.NIdPerfilUsuario,
-                            NomeUnidade = un.SNome
+                            Nome = usuario.usun.us.SUsuario,
+                            UnidadeId = usuario.usun.usun.NIdUnidade,
+                            Id = usuario.usun.us.Id,
+                            PerfilId = usuario.usun.us.NIdPerfilUsuario,
+                            NomeUnidade = usuario.un.SNome
                         }).FirstOrDefaultAsync();
+
                 }
             }
             catch (Exception ex)

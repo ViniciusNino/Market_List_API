@@ -13,8 +13,9 @@ namespace MarketList_Model
             Usuario = new HashSet<Usuario>();
         }
         public string SNome { get; set; }
-        public virtual ICollection<Lista> Lista { get; set; }
 
+        [NotMapped]
+        public virtual ICollection<Lista> Lista { get; set; }
         [NotMapped]
         public virtual ICollection<Usuario> Usuario { get; set; }
     }
