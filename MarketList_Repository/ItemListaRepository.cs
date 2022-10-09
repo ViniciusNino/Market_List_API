@@ -77,12 +77,8 @@ namespace MarketList_Repository
         {
             try
             {
-                using (_context)
-                {
-                    await _context.ItemLista.AddRangeAsync(itensLista);
-
-                    return await _context.SaveChangesAsync();
-                }
+                await _context.ItemLista.AddRangeAsync(itensLista);
+                return await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {

@@ -43,14 +43,10 @@ namespace MarketList_Repository
         {
             try
             {
-                using (_context)
-                {
-                    await _context.Lista.AddAsync(lista);
-                    var retorno = await _context.SaveChangesAsync();
+                await _context.Lista.AddAsync(lista);
+                var retorno = await _context.SaveChangesAsync();
 
-
-                    return lista;
-                }
+                return lista;
             }
             catch (Exception ex)
             {
@@ -91,6 +87,31 @@ namespace MarketList_Repository
             {
                 throw new Exception($"[ItemListaRepository - SalvarAgrupadosListas] - {ex.Message}", ex); ;
             };
+        }
+
+        public async Task<List<ItensListasAgrupadasDTO>> GetListaAgrupadas(int usuarioId)
+        {
+            try
+            {
+                return await (from al in _context.AgrupadorListas
+                              join lal in _context.ListaAgrupadorListas on al.Id equals lal.NIdAgrupadorListas
+                              join il in _context.ItemLista on lal.NIdLista equals il.NIdLista
+                              join i in _context.Item on il.NIdItem equals i.Id
+                              where al.NIdUsuario == usuarioId
+                              group new { al, i, il } by new { i.SNome, al.SDescricao } into listas
+                              select new ItensListasAgrupadasDTO()
+                              {
+                                  IdAgrupador = listas.Min(x => x.al.Id),
+                                  NomeAgrupador = listas.Key.SDescricao,
+                                  NomeItem = listas.Key.SNome,
+                                  UnidadeMedida = listas.Min(x => x.i.SUnidadeMedida),
+                                  Quantidade = listas.Sum(x => x.il.NQuantidade),
+                              }).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"[ItemListaRepository - GetListaAgrupadas] - {ex.Message}", ex);
+            }
         }
     }
 }

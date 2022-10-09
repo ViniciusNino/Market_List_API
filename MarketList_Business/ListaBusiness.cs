@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MarketList_Data;
 using MarketList_Model;
@@ -80,23 +81,38 @@ namespace MarketList_Business
                 DCadastro = DateTime.Now,
                 NIdStatus = (int)StatusAgrupadoEnum.Ativo,
                 NIdUsuario = agrupado.UsuarioId,
-                // SDescricao = agrupado.Descricao
+                SDescricao = agrupado.Descricao
             };
         }
 
-        private List<ListaAgrupadorListas> CriarAgrupadosListas(int agrupadoId, int[] agrupadoDto)
+        private List<ListaAgrupadorListas> CriarAgrupadosListas(int agrupadoId, List<int> agrupadoDto)
         {
-            var lista = new List<ListaAgrupadorListas>();
-            for (int i = 0; i < agrupadoDto.Length; i++)
+            return agrupadoDto.Select(x => new ListaAgrupadorListas
             {
-                lista.Add(new ListaAgrupadorListas()
-                {
-                    NIdAgrupadorListas = agrupadoId,
-                    NIdLista = agrupadoDto[i]
-                });
-            }
+                NIdAgrupadorListas = agrupadoId,
+                NIdLista = x
+            }).ToList();
+        }
 
-            return lista;
+        public async Task<List<ListasAgrupadasVM>> GetListaAgrupadas(int usuarioId)
+        {
+            var itensListasAgrupadas = await _listaRepository.GetListaAgrupadas(usuarioId);
+
+            return itensListasAgrupadas
+                    .GroupBy(x => new { x.IdAgrupador, x.NomeAgrupador })
+                    .Select(x => new ListasAgrupadasVM
+                    {
+                        Id = x.Key.IdAgrupador,
+                        Nome = x.Key.NomeAgrupador,
+                        Itens = itensListasAgrupadas
+                                .Where(y => y.IdAgrupador == x.Key.IdAgrupador)
+                                .Select(y => new ItensListasAgrupadasVM()
+                                {
+                                    Nome = y.NomeItem,
+                                    Quantidade = y.Quantidade,
+                                    UnidadeMedida = y.UnidadeMedida
+                                }).ToList()
+                    }).ToList();
         }
     }
 }

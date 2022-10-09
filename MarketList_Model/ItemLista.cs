@@ -33,6 +33,6 @@ namespace MarketList_Model
 
     public enum EStatusItemLista
     {
-        Solicitado = 1
+        Solicitado = 2
     }
 }

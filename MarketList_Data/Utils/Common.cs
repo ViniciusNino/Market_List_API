@@ -9,7 +9,8 @@ namespace MedPlannerCore.Data.Utils
 
         public static string GetSettings(string variable)
         {
-            return Environment.GetEnvironmentVariable(variable) ?? settings[variable];
+            var env = Environment.GetEnvironmentVariable(variable) ?? settings[variable];
+            return env;
         }
     }
 }

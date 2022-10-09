@@ -39,6 +39,29 @@ namespace MarketList_API.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("Agrupadas/UsuarioId/{usuarioId:int}")]
+        public async Task<IActionResult> GetListasAgrupadas(int usuarioId)
+        {
+            try
+            {
+                var listas = await _listaBusiness.GetListaAgrupadas(usuarioId);
+                // var listaVM = _mapper.Map<List<ListaVM>>(listas);
+
+                return Ok(listas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    mensagem = "Ocorreu um erro ao buscar suas listas agrupadas. Tente novamente mais tarde.",
+                    referencia = ex.Message,
+                    stack = ex.StackTrace,
+                    innerExcpetion = ex.InnerException == null ? ex.Message : ex.InnerException.Message
+                });
+            }
+        }
+
         [HttpPost]
         [Route("SalvarLista")]
         public async Task<IActionResult> SetLista(SalvarListaDTO lista)
@@ -51,7 +74,13 @@ namespace MarketList_API.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception("[ListaController/SetLista] - " + ex.Message, ex);
+                return BadRequest(new
+                {
+                    mensagem = "Ocorreu um erro ao salvar sua lista. Tente novamente mais tarde.",
+                    referencia = ex.Message,
+                    stack = ex.StackTrace,
+                    innerExcpetion = ex.InnerException == null ? ex.Message : ex.InnerException.Message
+                });
             }
         }
 
@@ -67,13 +96,13 @@ namespace MarketList_API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
-                // {
-                //     mensagem = "Ocorreu um erro ao buscar as Unidades e lista. Tente novamente mais tarde.",
-                //     referencia = ex.Message,
-                //     stack = ex.StackTrace,
-                //     innerExcpetion = ex.InnerException == null ? ex.Message : ex.InnerException.Message
-                // });
+                return BadRequest(new
+                {
+                    mensagem = "Ocorreu um erro ao agrupar suas listas. Tente novamente mais tarde.",
+                    referencia = ex.Message,
+                    stack = ex.StackTrace,
+                    innerExcpetion = ex.InnerException == null ? ex.Message : ex.InnerException.Message
+                });
             }
         }
 
@@ -89,7 +118,13 @@ namespace MarketList_API.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception("[ListaController/SetLista] - " + ex.Message, ex);
+                return BadRequest(new
+                {
+                    mensagem = "Ocorreu um erro ao deletar sua lista. Tente novamente mais tarde.",
+                    referencia = ex.Message,
+                    stack = ex.StackTrace,
+                    innerExcpetion = ex.InnerException == null ? ex.Message : ex.InnerException.Message
+                });
             }
         }
     }

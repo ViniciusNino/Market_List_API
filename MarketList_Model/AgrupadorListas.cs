@@ -10,6 +10,8 @@ namespace MarketList_Model
         public int NIdUsuario { get; set; }
         public int NIdStatus { get; set; }
         public DateTime DCadastro { get; set; }
+        public string SDescricao { get; set; }
+
         [NotMapped]
         public virtual Status Status { get; set; }
         [NotMapped]
@@ -18,6 +20,6 @@ namespace MarketList_Model
 
     public enum StatusAgrupadoEnum
     {
-        Ativo = 8
+        Ativo = 5
     }
 }

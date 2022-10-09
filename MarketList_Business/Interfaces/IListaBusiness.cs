@@ -10,5 +10,6 @@ namespace MarketList_Business
         Task<bool> SetLista(SalvarListaDTO lista);
         Task<bool> DeleteLista(int listaId);
         Task<bool> SetAgrupado(AgrupadorListasDTO agrupado);
+        Task<List<ListasAgrupadasVM>> GetListaAgrupadas(int usuarioId);
     }
 }
