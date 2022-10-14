@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MarketList_Model
 {
-    public partial class Sessao : ModelBase
+    public partial class Sessao : Entity<Sessao>
     {
         public Sessao()
         {
@@ -15,5 +15,6 @@ namespace MarketList_Model
 
         [NotMapped]
         public virtual ICollection<Item> Item { get; set; }
+        public override bool IsValid() => true;
     }
 }

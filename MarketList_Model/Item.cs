@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FluentValidation;
 
 namespace MarketList_Model
 {
-    public partial class Item : ModelBase
+    public partial class Item : Entity<Item>
     {
         public Item()
         {
@@ -27,5 +28,20 @@ namespace MarketList_Model
         public virtual Sessao Sessao { get; set; }
         [NotMapped]
         public virtual ICollection<ItemLista> ItemLista { get; set; }
+
+        public override bool IsValid()
+        {
+            RuleFor(c => c.SUnidadeMedida)
+                .NotEmpty().WithMessage("Unidade de Medida é obrigatório")
+                .MinimumLength(2).MaximumLength(3).WithMessage("Mínimo 1 e máximo 3 characters");
+
+            RuleFor(c => c.SNome)
+                .NotEmpty().WithMessage("Nome é obrigatório")
+                .MinimumLength(2).MaximumLength(50).WithMessage("Mínimo 2 e máximo 50 characters");
+
+            ValidationResult = Validate(this);
+
+            return ValidationResult.IsValid;
+        }
     }
 }

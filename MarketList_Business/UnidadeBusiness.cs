@@ -9,10 +9,12 @@ namespace MarketList_Business
     public class UnidadeBusiness : BaseBusiness<Unidade>, IUnidadeBusiness
     {
         private readonly IUnidadeRepository _unidadeRep;
+        private readonly IUnidadeDeTrabalho _unidadeTrab;
 
-        public UnidadeBusiness(IUnidadeRepository unidadeRepo) : base(unidadeRepo)
+        public UnidadeBusiness(IUnidadeRepository unidadeRepo, IUnidadeDeTrabalho unidadeTrab) : base(unidadeRepo, unidadeTrab)
         {
             _unidadeRep = unidadeRepo;
+            _unidadeTrab = unidadeTrab;
         }
 
         public async Task<List<UnidadeVM>> GetUnidadesEListas(int usuarioId)

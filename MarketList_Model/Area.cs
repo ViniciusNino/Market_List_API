@@ -7,7 +7,7 @@ using MarketList_Model;
 
 namespace MarketList_Model
 {
-    public partial class Area : ModelBase
+    public partial class Area : Entity<Area>
     {
         public Area()
         {
@@ -18,5 +18,7 @@ namespace MarketList_Model
 
         [NotMapped]
         public virtual ICollection<Status> Statuses { get; set; }
+
+        public override bool IsValid() => true;
     }
 }

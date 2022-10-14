@@ -12,11 +12,13 @@ namespace MarketList_Business
     {
         private readonly IListaRepository _listaRepository;
         private readonly IItemListaRepository _itemListaRep;
+        private readonly IUnidadeDeTrabalho _unidadeTrab;
 
-        public ListaBusiness(IListaRepository listaReposytory, IItemListaRepository itemListaRep)
+        public ListaBusiness(IListaRepository listaReposytory, IItemListaRepository itemListaRep, IUnidadeDeTrabalho unidadeTrab) : base(listaReposytory, unidadeTrab)
         {
             _listaRepository = listaReposytory;
             _itemListaRep = itemListaRep;
+            _unidadeTrab = unidadeTrab;
         }
         public async Task<List<ListaDTO>> GetListaPorUnidadeId(int unidadeId)
         {

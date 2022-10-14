@@ -58,8 +58,8 @@ namespace MarketList_Repository
         {
             try
             {
-                var itensAdd = itensAtualizar.Where(x => x.Id == 0).ToList();
-                var itensAtt = itensAtualizar.Where(x => x.Id != 0).ToList();
+                var itensAdd = itensAtualizar.Where(x => x.Id == null).ToList();
+                var itensAtt = itensAtualizar.Where(x => x.Id != null).ToList();
 
                 await _context.AddRangeAsync(itensAdd);
                 _context.UpdateRange(itensAtt);

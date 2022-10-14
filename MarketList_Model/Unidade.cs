@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MarketList_Model
 {
-    public partial class Unidade : ModelBase
+    public partial class Unidade : Entity<Unidade>
     {
         public Unidade()
         {
@@ -18,5 +16,6 @@ namespace MarketList_Model
         public virtual ICollection<Lista> Lista { get; set; }
         [NotMapped]
         public virtual ICollection<Usuario> Usuario { get; set; }
+        public override bool IsValid() => true;
     }
 }

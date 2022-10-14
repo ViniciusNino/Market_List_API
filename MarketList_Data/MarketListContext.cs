@@ -1,5 +1,5 @@
-﻿using MarketList_Model;
-using MedPlannerCore.Data.Utils;
+﻿using MarketList_API.Data;
+using MarketList_Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace MarketList_Data

@@ -1,156 +1,88 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MarketList_Data;
+using MarketList_Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace MarketList_Repository
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : Entity<TEntity>
     {
-        private MarketListContext _context;
+        protected readonly MarketListContext Db;
+        protected DbSet<TEntity> DbSet;
 
         public BaseRepository()
         { }
 
         public BaseRepository(MarketListContext context)
         {
-            _context = context;
+            Db = context;
+            DbSet = Db.Set<TEntity>();
         }
 
-        public async Task<T> GetId(int id)
+        public virtual async Task AddAsync(TEntity obj)
         {
-            try
-            {
-                using (_context)
-                {
-                    return await _context.Set<T>().FindAsync(id);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[GetId]", ex);
-            }
+            await DbSet.AddAsync(obj);
         }
 
-        public async Task<IEnumerable<T>> List()
+        public virtual void Update(TEntity obj)
         {
-            try
-            {
-                using (_context)
-                {
-                    return await _context.Set<T>().ToListAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[List]", ex);
-            }
+            Db.Entry(obj).State = EntityState.Modified;
+            DbSet.Update(obj);
         }
 
-        public async Task<T> Adicionar(T item)
+        public virtual async Task<IList<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            try
-            {
-                  using (_context)
-                {
-                    await _context.Set<T>().AddAsync(item);
-                    await _context.SaveChangesAsync();
-
-                    return item;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[Adicionar]", ex);
-            }
+            return await DbSet.AsNoTracking().Where(predicate).ToListAsync();
         }
 
-        public async Task<int> AdicionarLista(List<T> listaItem)
+        public virtual async Task<TEntity> FindByIdAsync(int id)
         {
-            try
-            {
-                 using (_context)
-                {
-                    await _context.Set<T>().AddRangeAsync(listaItem);
-
-                    return await _context.SaveChangesAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[AdicionarLista]", ex);
-            }
+            return await DbSet.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public async Task<int> Atualizar(T item)
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            try
-            {
-                using (_context)
-                {
-                    _context.Set<T>().Update(item);
-
-                    return await _context.SaveChangesAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[Atualizar]", ex);
-            }
+            return await DbSet.ToListAsync();
         }
 
-        public async Task<int> AtualizarLista(List<T> listaItem)
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includes)
         {
-            try
-            {
-               using (_context)
-                {
-                    _context.Set<T>().UpdateRange(listaItem);
+            IQueryable<TEntity> query = DbSet;
 
-                    return await _context.SaveChangesAsync();
-                }
-            }
-            catch (Exception ex)
+            if (includes != null)
             {
-                throw new Exception("[AtualizarLista]", ex);
+                foreach (var include in includes)
+                    query = query.Include(include);
             }
+
+            if (filter != null)
+                query = query.Where(filter);
+
+            return await query.ToListAsync();
         }
 
-        public async Task<int> Remover(T item)
+        public virtual async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includes)
         {
-            try
-            {
-                using (_context)
-                {
-                    _context.Set<T>().Remove(item);
+            IQueryable<TEntity> query = DbSet;
 
-                    return await _context.SaveChangesAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[Remover]", ex);
-            }
-           
+            foreach (Expression<Func<TEntity, object>> include in includes)
+                query = query.Include(include);
+
+            return await query.FirstOrDefaultAsync(filter);
         }
 
-        public async Task<int> RemoverLista(List<T> listaItem)
+        public virtual async Task RemoveAsync(int id)
         {
-            try
-            {
-                using (_context)
-                {
-                    _context.Set<T>().RemoveRange(listaItem);
+            DbSet.Remove(await DbSet.FindAsync(id));
+        }
 
-                    return await _context.SaveChangesAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[RemoverLista]", ex);
-            }
+        public void Dispose()
+        {
+            Db.Dispose();
         }
     }
 }

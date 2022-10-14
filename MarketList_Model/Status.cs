@@ -7,12 +7,13 @@ using MarketList_Model;
 
 namespace MarketList_Model
 {
-    public partial class Status : ModelBase
+    public partial class Status : Entity<Status>
     {
         public int NIdArea { get; set; }
         public string SDescricao { get; set; }
 
         [NotMapped]
         public virtual Area Area { get; set; }
+        public override bool IsValid() => true;
     }
 }

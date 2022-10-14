@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MarketList_Model
 {
-    public partial class ItemLista : ModelBase
+    public partial class ItemLista : Entity<ItemLista>
     {
         public int NIdLista { get; set; }
         public int NIdItem { get; set; }
@@ -29,6 +29,8 @@ namespace MarketList_Model
 
         [NotMapped]
         public virtual Usuario UsuarioSolicitante { get; set; }
+
+        public override bool IsValid() => true;
     }
 
     public enum EStatusItemLista

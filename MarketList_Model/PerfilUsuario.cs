@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MarketList_Model
 {
-    public partial class PerfilUsuario : ModelBase
+    public partial class PerfilUsuario : Entity<PerfilUsuario>
     {
         public PerfilUsuario()
         {
@@ -15,5 +15,6 @@ namespace MarketList_Model
 
         [NotMapped]
         public virtual ICollection<Usuario> Usuario { get; set; }
+        public override bool IsValid() => true;
     }
 }

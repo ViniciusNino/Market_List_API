@@ -1,3 +1,5 @@
+using System;
+
 namespace MarketList_Model
 {
     public class ItensListasAgrupadasDTO
