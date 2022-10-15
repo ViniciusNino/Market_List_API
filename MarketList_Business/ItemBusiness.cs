@@ -8,9 +8,12 @@ namespace MarketList_Business
     public class ItemBusiness : BaseBusiness<Item>, IItemBusiness
     {
         private readonly IItemRepository _iItemRepository;
-        public ItemBusiness(IItemRepository iItemRepository) : base (iItemRepository)
+        private readonly IUnidadeDeTrabalho _unidadeTrab;
+
+        public ItemBusiness(IItemRepository iItemRepository, IUnidadeDeTrabalho unidadeTrab) : base(iItemRepository, unidadeTrab)
         {
             _iItemRepository = iItemRepository;
+            _unidadeTrab = unidadeTrab;
         }
         public async Task<List<ItemDTO>> GetItemPorUnidade(int unidadeId)
         {

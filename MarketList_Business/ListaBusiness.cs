@@ -12,11 +12,13 @@ namespace MarketList_Business
     {
         private readonly IListaRepository _listaRepository;
         private readonly IItemListaRepository _itemListaRep;
+        private readonly IUnidadeDeTrabalho _unidadeTrab;
 
-        public ListaBusiness(IListaRepository listaReposytory, IItemListaRepository itemListaRep)
+        public ListaBusiness(IListaRepository listaReposytory, IItemListaRepository itemListaRep, IUnidadeDeTrabalho unidadeTrab) : base(listaReposytory, unidadeTrab)
         {
             _listaRepository = listaReposytory;
             _itemListaRep = itemListaRep;
+            _unidadeTrab = unidadeTrab;
         }
         public async Task<List<ListaDTO>> GetListaPorUnidadeId(int unidadeId)
         {
@@ -55,7 +57,7 @@ namespace MarketList_Business
                 NIdItem = x.ItemId,
                 NQuantidade = x.Quantidade,
                 NIdUsuarioSolicitante = x.UsuarioLogadoId,
-                NIdStatus = (int)EStatusItemLista.Solicitado
+                NIdStatus = (int)StatusItemListaEnum.Solicitado
             }));
 
             return itensListaBanco;
@@ -74,7 +76,7 @@ namespace MarketList_Business
             return await _listaRepository.SalvarAgrupadosListas(CriarAgrupadosListas(agrupadoId, agrupadoDto.ListaIds)) > 0;
         }
 
-        private AgrupadorListas CriarAgrupado(AgrupadorListasDTO agrupado)
+        private Agrupador CriarAgrupado(AgrupadorListasDTO agrupado)
         {
             return new()
             {
@@ -85,9 +87,9 @@ namespace MarketList_Business
             };
         }
 
-        private List<ListaAgrupadorListas> CriarAgrupadosListas(int agrupadoId, List<int> agrupadoDto)
+        private List<ListaAgrupador> CriarAgrupadosListas(int agrupadoId, List<int> agrupadoDto)
         {
-            return agrupadoDto.Select(x => new ListaAgrupadorListas
+            return agrupadoDto.Select(x => new ListaAgrupador
             {
                 NIdAgrupadorListas = agrupadoId,
                 NIdLista = x

@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MarketList_Model
 {
-    public partial class Lista : ModelBase
+    public partial class Lista : Entity<Lista>
     {
         public Lista()
         {
-            ItemLista = new HashSet<ItemLista>();
+            ItensLista = new HashSet<ItemLista>();
+            ListaAgrupador = new HashSet<ListaAgrupador>();
         }
 
         public int NIdUnidade { get; set; }
@@ -21,6 +22,9 @@ namespace MarketList_Model
         [NotMapped]
         public virtual Usuario Usuario { get; set; }
         [NotMapped]
-        public virtual ICollection<ItemLista> ItemLista { get; set; }
+        public virtual ICollection<ItemLista> ItensLista { get; set; }
+        [NotMapped]
+        public virtual ICollection<ListaAgrupador> ListaAgrupador { get; set; }
+        public override bool IsValid() => true;
     }
 }

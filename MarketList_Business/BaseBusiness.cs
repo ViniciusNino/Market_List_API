@@ -1,116 +1,74 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using MarketList_Model;
 using MarketList_Repository;
 
 namespace MarketList_Business
 {
-    public class BaseBusiness<T> : IBaseBusiness<T> where T : class
+    public class BaseBusiness<TEntity> : IBaseBusiness<TEntity> where TEntity : Entity<TEntity>
     {
-        private IBaseRepository<T> _repository;
+        private readonly IBaseRepository<TEntity> _repository;
+        private readonly IUnidadeDeTrabalho _unidadeTrab;
 
         public BaseBusiness()
         { }
 
-        public BaseBusiness(IBaseRepository<T> repository)
+        public BaseBusiness(IBaseRepository<TEntity> repository, IUnidadeDeTrabalho unidadeTrab)
         {
             _repository = repository;
+            _unidadeTrab = unidadeTrab;
         }
 
-        public Task<T> GetId(int id)
+        public async Task<TEntity> AddAsync(TEntity obl)
         {
-            try
+            if (!obl.IsValid())
             {
-                return _repository.GetId(id);
+                return null;
             }
-            catch (Exception ex)
-            {
-                throw new Exception("[GetId]", ex);
-            }
+
+            await _repository.AddAsync(obl);
+            await _unidadeTrab.CommitAsync();
+
+            return obl;
         }
 
-        public Task<IEnumerable<T>> List()
+        public async Task UpdateAsync(TEntity user)
         {
-            try
-            {
-                return _repository.List();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[List]", ex);
-            }
+            _repository.Update(user);
+            await _unidadeTrab.CommitAsync();
         }
 
-        public Task<T> Adicionar(T item)
+        public async Task<IList<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            try
-            {
-                return _repository.Adicionar(item);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[Adicionar]", ex);
-            }
+            return await _repository.FindAsync(predicate);
         }
 
-        public Task<int> AdicionarLista(List<T> listaItem)
+        public virtual async Task<TEntity> FindByIdAsync(int id)
         {
-            try
-            {
-                return _repository.AdicionarLista(listaItem);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[AdicionarLista]", ex);
-            }
+            return await _repository.FindByIdAsync(id);
         }
 
-        public Task<int> Atualizar(T item)
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            try
-            {
-                return _repository.Atualizar(item);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[Atualizar]", ex);
-            }
+            return await _repository.GetAllAsync();
         }
 
-        public Task<int> AtualizarLista(List<T> listaItem)
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includes)
         {
-            try
-            {
-                return _repository.AtualizarLista(listaItem);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[AtualizarLista]", ex);
-            }
+            return await _repository.GetAllAsync(filter, includes);
         }
 
-        public Task<int> Remover(T item)
+        public virtual async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includes)
         {
-            try
-            {
-                return _repository.Remover(item);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[Remover]", ex);
-            }
+            return await _repository.GetFirstOrDefaultAsync(filter, includes);
         }
 
-        public Task<int> RemoverLista(List<T> listaItem)
+        public virtual async Task RemoveAsync(int id)
         {
-            try
-            {
-                return _repository.RemoverLista(listaItem);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("[RemoverLista]", ex);
-            }
+            await _repository.RemoveAsync(id);
+            await _unidadeTrab.CommitAsync();
         }
     }
 }

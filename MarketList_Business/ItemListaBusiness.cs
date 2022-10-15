@@ -11,10 +11,12 @@ namespace MarketList_Business
     public class ItemListaBusiness : BaseBusiness<ItemLista>, IItemListaBusiness
     {
         private readonly IItemListaRepository _itemListaRepository;
+        private readonly IUnidadeDeTrabalho _unidadeTrab;
 
-        public ItemListaBusiness(IItemListaRepository itemListaRepository)
+        public ItemListaBusiness(IItemListaRepository itemListaRepository, IUnidadeDeTrabalho unidadeTrab) : base(itemListaRepository, unidadeTrab)
         {
             _itemListaRepository = itemListaRepository;
+            _unidadeTrab = unidadeTrab;
         }
 
         public Task<List<ItemListaDTO>> GetGetItensListaPorListaId(int listaId)
@@ -48,7 +50,7 @@ namespace MarketList_Business
                     NIdLista = listaAtualizarDto.ListaId,
                     NIdItem = item.ItemId ?? 0,
                     NQuantidade = item.Quantidade ?? 0,
-                    NIdStatus = 1,
+                    NIdStatus = (int)StatusItemListaEnum.Solicitado,
                     NIdUsuarioSolicitante = listaAtualizarDto.UsuarioLogadoId
                 };
 

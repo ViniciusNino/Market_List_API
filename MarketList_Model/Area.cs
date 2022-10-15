@@ -7,16 +7,18 @@ using MarketList_Model;
 
 namespace MarketList_Model
 {
-    public partial class Area : ModelBase
+    public partial class Area : Entity<Area>
     {
         public Area()
         {
-            Statuses = new HashSet<Status>();
+            ListaStatus = new HashSet<Status>();
         }
 
         public string SDescricao { get; set; }
 
         [NotMapped]
-        public virtual ICollection<Status> Statuses { get; set; }
+        public virtual ICollection<Status> ListaStatus { get; set; }
+
+        public override bool IsValid() => true;
     }
 }

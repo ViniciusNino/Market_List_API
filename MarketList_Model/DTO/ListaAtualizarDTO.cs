@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace MarketList_Model.DTO
@@ -12,7 +13,7 @@ namespace MarketList_Model.DTO
     public class ItemListaAtualizarDTO
     {
         public int? Id { get; set; }
-        public int? ItemId { get; set; }        
+        public int? ItemId { get; set; }
         public int? Quantidade { get; set; }
     }
 }

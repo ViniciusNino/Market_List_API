@@ -8,10 +8,12 @@ namespace MarketList_Business
     public class UsuarioBusiness : BaseBusiness<Usuario>, IUsuarioBusiness
     {
         private readonly IUsuarioRepository _usuarioRepository;
-        
-        public UsuarioBusiness(IUsuarioRepository usuarioRepository) : base (usuarioRepository)
+        private readonly IUnidadeDeTrabalho _unidadeTrab;
+
+        public UsuarioBusiness(IUsuarioRepository usuarioRepository, IUnidadeDeTrabalho unidadeTrab) : base(usuarioRepository, unidadeTrab)
         {
             _usuarioRepository = usuarioRepository;
+            _unidadeTrab = unidadeTrab;
         }
 
         public async Task<UsuarioAutenticadoVM> AutenticarUsuario(InformacaoAutenticacaoUsuarioDTO InformacaoAutenticacaoUsuario)
@@ -22,7 +24,7 @@ namespace MarketList_Business
                     return null;
 
                 return await _usuarioRepository.AutenticarUsuario(InformacaoAutenticacaoUsuario);
-                
+
             }
             catch (Exception ex)
             {
