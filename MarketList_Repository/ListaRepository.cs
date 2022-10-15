@@ -60,7 +60,7 @@ namespace MarketList_Repository
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<int> SalvarAgrupado(AgrupadorListas agrupado)
+        public async Task<int> SalvarAgrupado(Agrupador agrupado)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace MarketList_Repository
             }
         }
 
-        public async Task<int> SalvarAgrupadosListas(List<ListaAgrupadorListas> lista)
+        public async Task<int> SalvarAgrupadosListas(List<ListaAgrupador> lista)
         {
             try
             {

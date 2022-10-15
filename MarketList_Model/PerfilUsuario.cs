@@ -8,13 +8,13 @@ namespace MarketList_Model
     {
         public PerfilUsuario()
         {
-            Usuario = new HashSet<Usuario>();
+            Usuarios = new HashSet<Usuario>();
         }
 
         public string SDescricao { get; set; }
 
         [NotMapped]
-        public virtual ICollection<Usuario> Usuario { get; set; }
+        public virtual ICollection<Usuario> Usuarios { get; set; }
         public override bool IsValid() => true;
     }
 }

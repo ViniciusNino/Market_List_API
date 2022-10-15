@@ -82,7 +82,10 @@ namespace MarketList_Repository
 
         public void Dispose()
         {
-            Db.Dispose();
+            if (Db != null)
+            {
+                Db.Dispose();
+            }
         }
     }
 }

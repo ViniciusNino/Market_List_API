@@ -33,8 +33,10 @@ namespace MarketList_Model
         public override bool IsValid() => true;
     }
 
-    public enum EStatusItemLista
+    public enum StatusItemListaEnum
     {
-        Solicitado = 2
+        Solicitado = 2,
+        Atualizado = 3,
+        Excluido = 4
     }
 }

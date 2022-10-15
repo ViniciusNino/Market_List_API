@@ -11,8 +11,8 @@ namespace MarketList_Repository
         Task<List<ListaDTO>> GetListaPorUnidadeId(int unidadeId);
         Task<Lista> SetLista(Lista lista);
         Task<int> DeleteLista(int listaId);
-        Task<int> SalvarAgrupado(AgrupadorListas agrupados);
-        Task<int> SalvarAgrupadosListas(List<ListaAgrupadorListas> lista);
+        Task<int> SalvarAgrupado(Agrupador agrupados);
+        Task<int> SalvarAgrupadosListas(List<ListaAgrupador> lista);
         Task<List<ItensListasAgrupadasDTO>> GetListaAgrupadas(int usuarioId);
     }
 }

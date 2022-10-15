@@ -54,6 +54,7 @@ namespace MarketList_API
             services.AddTransient<IItemListaRepository, ItemListaRepository>();
             services.AddTransient<IUnidadeBusiness, UnidadeBusiness>();
             services.AddTransient<IUnidadeRepository, UnidadeRepository>();
+            services.AddTransient<IUnidadeDeTrabalho, UnidadeDeTrabalho>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

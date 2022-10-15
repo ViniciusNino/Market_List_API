@@ -50,7 +50,7 @@ namespace MarketList_Business
                     NIdLista = listaAtualizarDto.ListaId,
                     NIdItem = item.ItemId ?? 0,
                     NQuantidade = item.Quantidade ?? 0,
-                    NIdStatus = (int)EStatusItemLista.Solicitado,
+                    NIdStatus = (int)StatusItemListaEnum.Solicitado,
                     NIdUsuarioSolicitante = listaAtualizarDto.UsuarioLogadoId
                 };
 

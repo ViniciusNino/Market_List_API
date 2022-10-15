@@ -6,13 +6,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MarketList_Model
 {
-    public partial class ListaAgrupadorListas : Entity<ListaAgrupadorListas>
+    public partial class ListaAgrupador : Entity<ListaAgrupador>
     {
         public int NIdAgrupadorListas { get; set; }
         public int NIdLista { get; set; }
 
         [NotMapped]
-        public virtual AgrupadorListas AgrupadorListas { get; set; }
+        public virtual Agrupador Agrupador { get; set; }
         [NotMapped]
         public virtual Lista Lista { get; set; }
         public override bool IsValid() => true;

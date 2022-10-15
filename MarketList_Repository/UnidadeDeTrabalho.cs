@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using MarketList_Data;
 
-namespace MarketList_Repository.UnidadeDeTrabalho
+namespace MarketList_Repository
 {
     public class UnidadeDeTrabalho : IUnidadeDeTrabalho
     {
