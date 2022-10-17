@@ -12,12 +12,13 @@ namespace MarketList_Model
         public Area()
         {
             ListaStatus = new HashSet<Status>();
+            Tipos = new HashSet<Tipo>();
         }
 
         public string SDescricao { get; set; }
 
-        [NotMapped]
         public virtual ICollection<Status> ListaStatus { get; set; }
+        public virtual ICollection<Tipo> Tipos { get; set; }
 
         public override bool IsValid() => true;
     }

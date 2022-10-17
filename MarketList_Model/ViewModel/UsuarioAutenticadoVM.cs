@@ -8,7 +8,7 @@ namespace MarketList_Model
 
         public string Nome { get; set; }
 
-        public int PerfilId { get; set; }
+        public int TipoId { get; set; }
 
         public int? UnidadeId { get; set; }
 

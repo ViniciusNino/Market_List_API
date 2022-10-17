@@ -6,12 +6,6 @@ namespace MarketList_Model
 {
     public partial class UsuarioUnidade : Entity<UsuarioUnidade>
     {
-        public UsuarioUnidade()
-        {
-            Usuario = new();
-            Unidade = new();
-        }
-
         public int NIdUsuario { get; set; }
         public int NIdUnidade { get; set; }
 

@@ -20,7 +20,7 @@ namespace MarketList_Data
         public virtual DbSet<Item> Item { get; set; }
         public virtual DbSet<ItemLista> ItemLista { get; set; }
         public virtual DbSet<Lista> Lista { get; set; }
-        public virtual DbSet<PerfilUsuario> PerfilUsuario { get; set; }
+        public virtual DbSet<Tipo> Tipo { get; set; }
         public virtual DbSet<Sessao> Sessao { get; set; }
         public virtual DbSet<Unidade> Unidade { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
@@ -40,7 +40,7 @@ namespace MarketList_Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ItemListaMapping).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ListaMapping).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ListaAgrupadorMapping).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PerfilUsuarioMapping).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(TipoMapping).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(SessaoMapping).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(StatusMapping).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(UnidadeMapping).Assembly);

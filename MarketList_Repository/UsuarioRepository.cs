@@ -32,7 +32,7 @@ namespace MarketList_Repository
                             Nome = usuario.usun.us.SUsuario,
                             UnidadeId = usuario.usun.usun.NIdUnidade,
                             Id = usuario.usun.us.Id,
-                            PerfilId = usuario.usun.us.NIdPerfilUsuario,
+                            TipoId = usuario.usun.us.NIdTipo,
                             NomeUnidade = usuario.un.SNome
                         }).FirstOrDefaultAsync();
 

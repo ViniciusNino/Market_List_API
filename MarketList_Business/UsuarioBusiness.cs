@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MarketList_Model;
 using MarketList_Repository;
@@ -30,6 +31,13 @@ namespace MarketList_Business
             {
                 throw new Exception($"[UsuarioBusiness - AutenticarUsuario] - {ex.Message}", ex);
             }
+        }
+
+        public async Task<bool> EmailExiste(string email)
+        {
+            var usuario = await FindAsync(us => us.SEmail == email);
+
+            return usuario.Any();
         }
     }
 }

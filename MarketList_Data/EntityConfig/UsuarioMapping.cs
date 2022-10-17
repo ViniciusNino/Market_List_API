@@ -20,13 +20,13 @@ namespace MarketList_Data
 
             builder.Property(u => u.SNome).IsRequired().HasMaxLength(150);
 
-            builder.Property(u => u.NIdPerfilUsuario).IsRequired();
+            builder.Property(u => u.NIdTipo).IsRequired();
 
-            builder.Property(u => u.NIdStatus).HasDefaultValue((int)StatusUsuarioEnum.Aguardando_Ativacao_Email).IsRequired();
+            builder.Property(u => u.NIdStatus).IsRequired();
 
             builder.Property(u => u.DCadastro).HasDefaultValueSql("now()").IsRequired();
 
-            builder.HasOne(u => u.PerfilUsuario).WithMany(c => c.Usuarios).HasForeignKey(u => u.NIdPerfilUsuario).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(u => u.Tipo).WithMany(c => c.Usuarios).HasForeignKey(u => u.NIdTipo).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(u => u.Status).WithMany(c => c.Usuarios).HasForeignKey(u => u.NIdStatus).OnDelete(DeleteBehavior.NoAction);
 

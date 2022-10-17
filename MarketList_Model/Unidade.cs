@@ -12,11 +12,8 @@ namespace MarketList_Model
         }
         public string SNome { get; set; }
 
-        [NotMapped]
         public virtual ICollection<Lista> Listas { get; set; }
-        [NotMapped]
         public virtual ICollection<UsuarioUnidade> UsuarioUnidades { get; set; }
-        [NotMapped]
         public virtual ICollection<Item> Itens { get; set; }
         public override bool IsValid() => true;
     }

@@ -18,13 +18,9 @@ namespace MarketList_Model
         public int NIdArea { get; set; }
         public string SDescricao { get; set; }
 
-        [NotMapped]
         public virtual Area Area { get; set; }
-        [NotMapped]
         public virtual ICollection<Usuario> Usuarios { get; set; }
-        [NotMapped]
         public virtual ICollection<Agrupador> Agrupadores { get; set; }
-        [NotMapped]
         public virtual ICollection<ItemLista> ItensLista { get; set; }
         public override bool IsValid() => true;
     }

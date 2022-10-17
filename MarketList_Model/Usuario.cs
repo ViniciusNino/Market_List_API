@@ -10,22 +10,31 @@ namespace MarketList_Model
     {
         public Usuario()
         {
-            PerfilUsuario = new PerfilUsuario();
+            Tipo = new Tipo();
             Status = new Status();
             ItensListaComprador = new HashSet<ItemLista>();
             ItensListaSolicitante = new HashSet<ItemLista>();
             Listas = new HashSet<Lista>();
             Agrupadores = new HashSet<Agrupador>();
         }
-        public string SUsuario { get; set; }
+
+        public Usuario(string nome, string senha, string email, int tipoId = (int)PerfitlUsuarioEnum.Administrador, int status = (int)StatusUsuarioEnum.Aguardando_Ativacao_Email)
+        {
+            SNome = nome;
+            SSenha = senha;
+            SEmail = email;
+            NIdTipo = tipoId;
+            NIdStatus = status;
+        }
+        public string SUsuario { get; private set; }
         public string SNome { get; set; }
-        public string SSenha { get; set; }
+        public string SSenha { get; private set; }
         public string SEmail { get; private set; }
-        public int NIdPerfilUsuario { get; set; }
+        public int NIdTipo { get; set; }
         public int NIdStatus { get; set; }
         public DateTime DCadastro { get; set; }
 
-        public virtual PerfilUsuario PerfilUsuario { get; set; }
+        public virtual Tipo Tipo { get; set; }
 
         public virtual Status Status { get; set; }
 
@@ -62,5 +71,13 @@ namespace MarketList_Model
     {
         Ativo = 1,
         Aguardando_Ativacao_Email = 6
+    }
+
+    public enum PerfitlUsuarioEnum
+    {
+        root = 1,
+        Administrador = 2,
+        Comprador = 3,
+        Solicitante = 4,
     }
 }

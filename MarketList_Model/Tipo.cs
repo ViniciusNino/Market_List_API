@@ -1,20 +1,21 @@
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MarketList_Model
 {
-    public partial class PerfilUsuario : Entity<PerfilUsuario>
+    public partial class Tipo : Entity<Tipo>
     {
-        public PerfilUsuario()
+        public Tipo()
         {
             Usuarios = new HashSet<Usuario>();
+            VerificacoesToken = new HashSet<VerificacaoToken>();
         }
 
+        public int NIdArea { get; set; }
         public string SDescricao { get; set; }
 
-        [NotMapped]
+        public virtual Area Area { get; set; }
         public virtual ICollection<Usuario> Usuarios { get; set; }
+        public virtual ICollection<VerificacaoToken> VerificacoesToken { get; set; }
         public override bool IsValid() => true;
     }
 }

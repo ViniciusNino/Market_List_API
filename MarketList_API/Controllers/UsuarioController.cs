@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using System.Net;
 using System;
 using System.Threading.Tasks;
@@ -7,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.Swagger.Annotations;
 using MarketList_Model.DTO;
 using MarketList_API.Response;
+using Microsoft.AspNetCore.Http;
+using BC = BCrypt.Net.BCrypt;
 
 namespace MarketList_API.Controllers
 {
@@ -70,21 +74,42 @@ namespace MarketList_API.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         [SwaggerResponse(HttpStatusCode.Conflict)]
         [SwaggerResponse(HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> CadastrarUsuario(UsuarioCadastroDTO usuario)
+        public async Task<IActionResult> CadastrarUsuario(UsuarioCadastroDTO usuarioDto)
         {
             ApiResponse response = null;
 
-            if (usuario == null || string.IsNullOrEmpty(usuario.Email) || string.IsNullOrEmpty(usuario.Senha) || string.IsNullOrEmpty(usuario.Nome))
+            if (usuarioDto == null || string.IsNullOrEmpty(usuarioDto.Email) || string.IsNullOrEmpty(usuarioDto.Senha) || string.IsNullOrEmpty(usuarioDto.Nome))
             {
-                response = new ApiResponse("Parâmetros inválidos", HttpStatusCode.BadRequest);
+                response = new ApiResponse("Parâmetros inválidos!", HttpStatusCode.BadRequest);
                 BadRequest(response);
             }
 
+            var emailJaCadastrado = await _usuarioBusiness.EmailExiste(usuarioDto.Email);
 
+            if (emailJaCadastrado)
+            {
+                response = new ApiResponse("E-mail já cadastrado!", HttpStatusCode.Conflict);
+                return StatusCode(StatusCodes.Status409Conflict, response);
+            }
 
             try
             {
-                Util.SendEmail.Send(usuario.Email, "teste");
+                usuarioDto.Senha = BC.HashPassword(usuarioDto.Senha);
+
+                var novoUsuario = new Usuario(usuarioDto.Nome, usuarioDto.Senha, usuarioDto.Email);
+
+                var usuario = await _usuarioBusiness.AddAsync(novoUsuario);
+
+                if (usuario == null)
+                {
+                    response = new ApiResponse("Parâmetros inválidos!", HttpStatusCode.BadRequest);
+                    return BadRequest(response);
+                }
+
+                var bytesTextoToken = Encoding.UTF8.GetBytes(Guid.NewGuid().ToString());
+                var token = Convert.ToBase64String(bytesTextoToken);
+
+                // Util.SendEmail.Send(usuario.Email, "teste");
 
                 return Ok("Ok!");
             }
