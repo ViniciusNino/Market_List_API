@@ -16,6 +16,7 @@ namespace MarketList_Model
             ItensListaSolicitante = new HashSet<ItemLista>();
             Listas = new HashSet<Lista>();
             Agrupadores = new HashSet<Agrupador>();
+            Tokens = new HashSet<VerificacaoToken>();
         }
 
         public Usuario(string nome, string senha, string email, int tipoId = (int)PerfitlUsuarioEnum.Administrador, int status = (int)StatusUsuarioEnum.Aguardando_Ativacao_Email)
@@ -35,18 +36,19 @@ namespace MarketList_Model
         public DateTime DCadastro { get; set; }
 
         public virtual Tipo Tipo { get; set; }
-
         public virtual Status Status { get; set; }
 
         public virtual ICollection<ItemLista> ItensListaComprador { get; set; }
-
         public virtual ICollection<ItemLista> ItensListaSolicitante { get; set; }
-
         public virtual ICollection<Lista> Listas { get; set; }
-
         public virtual ICollection<UsuarioUnidade> UsuarioUnidades { get; set; }
-
         public virtual ICollection<Agrupador> Agrupadores { get; set; }
+        public virtual ICollection<VerificacaoToken> Tokens { get; set; }
+
+        public void ConfirmarEmail()
+        {
+            NIdStatus = (int)StatusUsuarioEnum.Ativo;
+        }
 
         public override bool IsValid()
         {

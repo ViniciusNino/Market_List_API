@@ -7,7 +7,7 @@ namespace MarketList_Model
         public Tipo()
         {
             Usuarios = new HashSet<Usuario>();
-            VerificacoesToken = new HashSet<VerificacaoToken>();
+            Tokens = new HashSet<VerificacaoToken>();
         }
 
         public int NIdArea { get; set; }
@@ -15,7 +15,7 @@ namespace MarketList_Model
 
         public virtual Area Area { get; set; }
         public virtual ICollection<Usuario> Usuarios { get; set; }
-        public virtual ICollection<VerificacaoToken> VerificacoesToken { get; set; }
+        public virtual ICollection<VerificacaoToken> Tokens { get; set; }
         public override bool IsValid() => true;
     }
 }

@@ -7,6 +7,7 @@ namespace MarketList_API.Data
     {
         private static IConfigurationSection settings => new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings");
         private static IConfigurationSection mailSettings => new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("MailSettings");
+        private static IConfigurationSection jwtSettings => new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("JwtSettings");
 
         public static string GetSettings(string variable)
         {
@@ -16,9 +17,13 @@ namespace MarketList_API.Data
 
         public static string GetMailSettings(string variable)
         {
-            var test = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build()["UseDev"];
-            var test2 = Convert.ToBoolean(test);
             var env = Environment.GetEnvironmentVariable(variable) ?? mailSettings[variable];
+            return env;
+        }
+
+        public static string GetJwtSettings(string variable)
+        {
+            var env = Environment.GetEnvironmentVariable(variable) ?? jwtSettings[variable];
             return env;
         }
 

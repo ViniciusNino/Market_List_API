@@ -28,10 +28,20 @@ namespace MarketList_Repository
             await DbSet.AddAsync(obj);
         }
 
+        public virtual async Task AddRangeAsync(ICollection<TEntity> obj)
+        {
+            await DbSet.AddRangeAsync(obj);
+        }
+
         public virtual void Update(TEntity obj)
         {
             Db.Entry(obj).State = EntityState.Modified;
             DbSet.Update(obj);
+        }
+
+        public virtual void UpdateRange(ICollection<TEntity> obj)
+        {
+            DbSet.UpdateRange(obj);
         }
 
         public virtual async Task<IList<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
