@@ -20,9 +20,9 @@ namespace MarketList_Data
 
             builder.Property(u => u.NIdUsuarioSolicitante).IsRequired();
 
-            builder.Property(u => u.NQuantidade).IsRequired();
+            builder.Property(u => u.NQuantidade).HasColumnType("decimal(18,2)").IsRequired();
 
-            builder.Property(u => u.DCadastro).HasDefaultValueSql("now()").IsRequired();
+            builder.Property(u => u.DCadastro).HasDefaultValueSql("GETDATE()").IsRequired();
 
             builder.Property(u => u.BAtivo).HasDefaultValue(true).IsRequired();
 
@@ -37,6 +37,8 @@ namespace MarketList_Data
             builder.HasOne(u => u.UsuarioSolicitante).WithMany(c => c.ItensListaSolicitante).HasForeignKey(u => u.NIdUsuarioSolicitante).OnDelete(DeleteBehavior.NoAction);
 
             builder.Ignore(u => u.ValidationResult);
+            builder.Ignore(u => u.ClassLevelCascadeMode);
+            builder.Ignore(u => u.RuleLevelCascadeMode);
             builder.Ignore(u => u.CascadeMode);
 
             builder.ToTable("ItemLista");

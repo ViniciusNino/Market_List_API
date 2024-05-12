@@ -17,6 +17,8 @@ namespace MarketList_Data
             builder.HasOne(u => u.Area).WithMany(c => c.Tipos).HasForeignKey(u => u.NIdArea).OnDelete(DeleteBehavior.NoAction);
 
             builder.Ignore(u => u.ValidationResult);
+            builder.Ignore(u => u.ClassLevelCascadeMode);
+            builder.Ignore(u => u.RuleLevelCascadeMode);
             builder.Ignore(u => u.CascadeMode);
 
             builder.ToTable("Tipo");

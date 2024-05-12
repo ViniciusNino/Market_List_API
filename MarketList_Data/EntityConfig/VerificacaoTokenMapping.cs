@@ -18,13 +18,15 @@ namespace MarketList_Data.EntityConfig
 
             builder.Property(u => u.BAtivo).HasDefaultValue(true).IsRequired();
 
-            builder.Property(u => u.DCadastro).IsRequired().HasDefaultValueSql("now()");
+            builder.Property(u => u.DCadastro).IsRequired().HasDefaultValueSql("GETDATE()");
 
             builder.HasOne(u => u.Tipo).WithMany(c => c.Tokens).HasForeignKey(u => u.NIdTipo).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(u => u.Usuario).WithMany(c => c.Tokens).HasForeignKey(u => u.NIdUsuario).OnDelete(DeleteBehavior.NoAction);
 
             builder.Ignore(u => u.ValidationResult);
+            builder.Ignore(u => u.ClassLevelCascadeMode);
+            builder.Ignore(u => u.RuleLevelCascadeMode);
             builder.Ignore(u => u.CascadeMode);
 
             builder.ToTable("VerificacaoToken");

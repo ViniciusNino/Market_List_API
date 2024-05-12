@@ -24,13 +24,15 @@ namespace MarketList_Data
 
             builder.Property(u => u.NIdStatus).IsRequired();
 
-            builder.Property(u => u.DCadastro).HasDefaultValueSql("now()").IsRequired();
+            builder.Property(u => u.DCadastro).HasDefaultValueSql("GETDATE()").IsRequired();
 
             builder.HasOne(u => u.Tipo).WithMany(c => c.Usuarios).HasForeignKey(u => u.NIdTipo).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(u => u.Status).WithMany(c => c.Usuarios).HasForeignKey(u => u.NIdStatus).OnDelete(DeleteBehavior.NoAction);
 
             builder.Ignore(u => u.ValidationResult);
+            builder.Ignore(u => u.ClassLevelCascadeMode);
+            builder.Ignore(u => u.RuleLevelCascadeMode);
             builder.Ignore(u => u.CascadeMode);
 
             builder.ToTable("Usuario");

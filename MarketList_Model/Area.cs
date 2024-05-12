@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using MarketList_Model;
+﻿using System.Collections.Generic;
 
 #nullable disable
 
@@ -19,6 +16,13 @@ namespace MarketList_Model
 
         public virtual ICollection<Status> ListaStatus { get; set; }
         public virtual ICollection<Tipo> Tipos { get; set; }
+
+        public enum AreaEnum
+        {
+            Usuario = 1,
+            Agrupador = 2,
+            Lista = 3
+        }
 
         public override bool IsValid() => true;
     }

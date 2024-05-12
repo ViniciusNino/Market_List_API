@@ -29,7 +29,8 @@ namespace MarketList_Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseNpgsql(Common.GetSettings("DefaultConnectionPGSQL")).UseLazyLoadingProxies();
+                optionsBuilder.UseSqlServer(Common.GetSettings("DefaultConnectionMSSQL")).UseLazyLoadingProxies();
+                
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

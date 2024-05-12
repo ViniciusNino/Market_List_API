@@ -179,6 +179,7 @@ namespace MarketList_API.Controllers
                     return BadRequest(response);
                 }
 
+                usuarioDto.Id = usuario.Id;
                 await _verificacaoTokenBusiness.SetVerificacaoToken(usuarioDto, (int)TipoVerificacaoTokenEnum.Ativacao_Email);
                 response = new ApiResponse("Usário cadastrado!", HttpStatusCode.Created);
 
@@ -216,7 +217,7 @@ namespace MarketList_API.Controllers
         /// <response code="400">O endereço de e-mail é obrigatório ou o token de verificação não foi enviado</response>
         /// <response code="500">Erro do Servidor Interno</response>
         [HttpPost]
-        [Route("Reenviar/Email/Validacao")]
+        [Route("Reenviar/Validacao/Email")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         [SwaggerResponse(HttpStatusCode.InternalServerError)]
@@ -258,7 +259,7 @@ namespace MarketList_API.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     POST Reenviar/Email/Validacao/27e897b2-9e01-4580-ed7f-08d9a8966c72
+        ///     POST Usuario/Validar/Email?token=N2ZlMzFiNWItYjM2MS00ZGJlLTgzZGYtOTk1YmJkMzlkYjJl
         ///     
         /// Sample response:
         /// 
@@ -291,8 +292,6 @@ namespace MarketList_API.Controllers
 
             try
             {
-                var bytesTextoToken = Encoding.UTF8.GetBytes(token);
-                token = Convert.ToBase64String(bytesTextoToken);
                 var tokenDB = await _verificacaoTokenBusiness.GetFirstOrDefaultAsync(ver => ver.Token == token, item => item.Usuario);
 
                 if (tokenDB == null)

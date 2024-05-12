@@ -95,7 +95,7 @@ namespace MarketList_API
                 });
             });
 
-            services.AddDbContext<MarketListContext>(options => options.UseNpgsql(Common.GetSettings("DefaultConnectionPGSQL")).UseLazyLoadingProxies());
+            services.AddDbContext<MarketListContext>(options => options.UseSqlServer(Common.GetSettings("DefaultConnectionMSSQL")).UseLazyLoadingProxies());
 
             services.AddTransient<IUsuarioBusiness, UsuarioBusiness>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();

@@ -13,6 +13,8 @@ namespace MarketList_Data
             builder.Property(u => u.SNome).IsRequired().HasMaxLength(100);
 
             builder.Ignore(u => u.ValidationResult);
+            builder.Ignore(u => u.ClassLevelCascadeMode);
+            builder.Ignore(u => u.RuleLevelCascadeMode);
             builder.Ignore(u => u.CascadeMode);
 
             builder.ToTable("Sessao");

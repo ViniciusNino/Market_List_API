@@ -13,7 +13,7 @@ namespace MarketList_Data
 
             builder.Property(u => u.SDescricao).IsRequired().HasMaxLength(100);
 
-            builder.Property(u => u.DCadastro).HasDefaultValueSql("now()").IsRequired(); ;
+            builder.Property(u => u.DCadastro).HasDefaultValueSql("GETDATE()").IsRequired(); ;
 
             builder.Property(u => u.NIdStatus).HasDefaultValue((int)StatusAgrupadoEnum.Ativo).IsRequired();
 
@@ -24,6 +24,8 @@ namespace MarketList_Data
             builder.HasOne(u => u.Usuario).WithMany(c => c.Agrupadores).HasForeignKey(u => u.NIdUsuario).OnDelete(DeleteBehavior.NoAction);
 
             builder.Ignore(u => u.ValidationResult);
+            builder.Ignore(u => u.ClassLevelCascadeMode);
+            builder.Ignore(u => u.RuleLevelCascadeMode);
             builder.Ignore(u => u.CascadeMode);
 
             builder.ToTable("Agrupador");

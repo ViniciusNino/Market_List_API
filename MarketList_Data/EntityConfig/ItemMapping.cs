@@ -23,6 +23,8 @@ namespace MarketList_Data
             builder.HasOne(u => u.Unidade).WithMany(c => c.Itens).HasForeignKey(u => u.NIdUnidade).OnDelete(DeleteBehavior.NoAction);
 
             builder.Ignore(u => u.ValidationResult);
+            builder.Ignore(u => u.ClassLevelCascadeMode);
+            builder.Ignore(u => u.RuleLevelCascadeMode);
             builder.Ignore(u => u.CascadeMode);
 
             builder.ToTable("Item");
