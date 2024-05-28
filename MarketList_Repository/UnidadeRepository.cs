@@ -36,5 +36,21 @@ namespace MarketList_Repository
             }
 
         }
+
+        public async Task<List<UnidadeDTO>> GetUnidades(int usuarioId)
+        {
+            using (_context)
+            {
+                return await (from uni in _context.Unidade
+                              join unUni in _context.UsuarioUnidade on uni.Id equals unUni.NIdUnidade
+                              where unUni.NIdUsuario == usuarioId
+                              select new UnidadeDTO
+                              {
+                                  Id = uni.Id,
+                                  Nome = uni.SNome,
+                              }).ToListAsync();
+            }
+
+        }
     }
 }

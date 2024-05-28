@@ -13,7 +13,7 @@ namespace MarketList_Data
             builder.Property(u => u.NIdUnidade).IsRequired();
 
             builder.Property(u => u.NIdUsuario).IsRequired();
-
+            
             builder.HasOne(u => u.Unidade).WithMany(c => c.UsuarioUnidades).HasForeignKey(u => u.NIdUnidade).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(u => u.Usuario).WithMany(c => c.UsuarioUnidades).HasForeignKey(u => u.NIdUsuario).OnDelete(DeleteBehavior.NoAction);

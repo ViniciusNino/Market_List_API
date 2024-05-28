@@ -33,10 +33,12 @@ namespace MarketList_Model
         public string SEmail { get; private set; }
         public int NIdTipo { get; set; }
         public int NIdStatus { get; set; }
+        public int? NIdUnidade { get; set; }
         public DateTime DCadastro { get; set; }
 
         public virtual Tipo Tipo { get; set; }
         public virtual Status Status { get; set; }
+        public virtual Unidade Unidade { get; set; }
 
         public virtual ICollection<ItemLista> ItensListaComprador { get; set; }
         public virtual ICollection<ItemLista> ItensListaSolicitante { get; set; }

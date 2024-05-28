@@ -296,6 +296,11 @@ namespace MarketList_Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("DCadastro")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
                     b.Property<string>("SNome")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -325,6 +330,9 @@ namespace MarketList_Data.Migrations
                     b.Property<int>("NIdTipo")
                         .HasColumnType("int");
 
+                    b.Property<int?>("NIdUnidade")
+                        .HasColumnType("int");
+
                     b.Property<string>("SEmail")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -349,6 +357,8 @@ namespace MarketList_Data.Migrations
                     b.HasIndex("NIdStatus");
 
                     b.HasIndex("NIdTipo");
+
+                    b.HasIndex("NIdUnidade");
 
                     b.HasIndex("SEmail")
                         .IsUnique();
@@ -572,9 +582,16 @@ namespace MarketList_Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("MarketList_Model.Unidade", "Unidade")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("NIdUnidade")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.Navigation("Status");
 
                     b.Navigation("Tipo");
+
+                    b.Navigation("Unidade");
                 });
 
             modelBuilder.Entity("MarketList_Model.UsuarioUnidade", b =>
@@ -667,6 +684,8 @@ namespace MarketList_Data.Migrations
                     b.Navigation("Listas");
 
                     b.Navigation("UsuarioUnidades");
+
+                    b.Navigation("Usuarios");
                 });
 
             modelBuilder.Entity("MarketList_Model.Usuario", b =>

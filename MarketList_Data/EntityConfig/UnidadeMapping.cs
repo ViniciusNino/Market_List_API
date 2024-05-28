@@ -11,6 +11,8 @@ namespace MarketList_Data
             builder.HasKey(u => u.Id);
 
             builder.Property(u => u.SNome).IsRequired().HasMaxLength(100);
+            
+            builder.Property(u => u.DCadastro).HasDefaultValueSql("GETDATE()").IsRequired();
 
             builder.Ignore(u => u.ValidationResult);
             builder.Ignore(u => u.ClassLevelCascadeMode);

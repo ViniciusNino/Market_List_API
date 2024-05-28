@@ -9,8 +9,8 @@ namespace MarketList_Business
 {
     public class BaseBusiness<TEntity> : IBaseBusiness<TEntity> where TEntity : Entity<TEntity>
     {
-        private readonly IBaseRepository<TEntity> _repository;
-        private readonly IUnidadeDeTrabalho _unidadeTrab;
+        protected readonly IBaseRepository<TEntity> _repository;
+        protected readonly IUnidadeDeTrabalho _unidadeTrab;
 
         public BaseBusiness()
         { }

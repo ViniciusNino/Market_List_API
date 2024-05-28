@@ -15,6 +15,7 @@ using MarketList_API.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MarketList_Model;
 
 namespace MarketList_API
 {
@@ -106,7 +107,9 @@ namespace MarketList_API
             services.AddTransient<IItemListaBusiness, ItemListaBusiness>();
             services.AddTransient<IItemListaRepository, ItemListaRepository>();
             services.AddTransient<IUnidadeBusiness, UnidadeBusiness>();
+            services.AddTransient<IUnidadeCadastroBusiness, UnidadeCadastroBusiness>();
             services.AddTransient<IUnidadeRepository, UnidadeRepository>();
+            services.AddTransient<IUsuarioUnidadeRepository, UsuarioUnidadeRepository>();
             services.AddTransient<IUnidadeDeTrabalho, UnidadeDeTrabalho>();
             services.AddTransient<IVerificacaoTokenBusiness, VerificacaoTokenBusiness>();
             services.AddTransient<IVerificacaoTokenRepository, VerificacaoTokenRepository>();
