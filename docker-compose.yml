@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: marketlist-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: marketlist_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - marketlist-net
+
+  api:
+    build:
+      context: ./Market_List_API
+      dockerfile: Dockerfile
+    container_name: marketlist-api
+    ports:
+      - "5000:80"
+      - "5001:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=marketlist_db;Username=postgres;Password=mysecretpassword
+    depends_on:
+      - postgres
+    networks:
+      - marketlist-net
+
+  frontend:
+    build:
+      context: ./Market_List_Front
+      dockerfile: Dockerfile
+    container_name: marketlist-front
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    networks:
+      - marketlist-net
+
+volumes:
+  postgres_data:
+
+networks:
+  marketlist-net:
+    driver: bridge

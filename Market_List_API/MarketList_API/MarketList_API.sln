@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketList_API", "MarketList_API.csproj", "{92FB1B01-37C9-42E6-ADF7-4E11CA12AFFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92FB1B01-37C9-42E6-ADF7-4E11CA12AFFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92FB1B01-37C9-42E6-ADF7-4E11CA12AFFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92FB1B01-37C9-42E6-ADF7-4E11CA12AFFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92FB1B01-37C9-42E6-ADF7-4E11CA12AFFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {125E53A8-B0C3-4F99-B2F6-1249991E7975}
+	EndGlobalSection
+EndGlobal

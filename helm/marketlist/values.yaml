@@ -1,0 +1,45 @@
+# Default values for marketlist.
+
+replicaCount: 1
+
+imageCredentials:
+  registry: ghcr.io
+
+backend:
+  name: api
+  image:
+    repository: repository-placeholder/marketlist-api
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+  env:
+    aspnetcoreEnv: Production
+    dbHost: postgres-host
+    dbName: marketlist_db
+    dbUser: postgres
+    dbPassword: mysecretpassword
+
+frontend:
+  name: frontend
+  image:
+    repository: repository-placeholder/marketlist-front
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: marketlist.local
+      paths:
+        - path: /
+          pathType: Prefix
+          backendService: frontend
+        - path: /api
+          pathType: Prefix
+          backendService: api
