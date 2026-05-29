@@ -19,11 +19,11 @@ services:
       dockerfile: Dockerfile
     container_name: marketlist-api
     ports:
-      - "5000:80"
-      - "5001:443"
+      - "5000:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__DefaultConnection=Host=postgres;Database=marketlist_db;Username=postgres;Password=mysecretpassword
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - DefaultConnectionPGSQL=Host=postgres;Database=marketlist_db;Username=postgres;Password=mysecretpassword
     depends_on:
       - postgres
     networks:

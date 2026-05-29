@@ -1,6 +1,6 @@
 import { useStore } from '../store/useStore';
 
-const BASE_URL = 'https://localhost:5001';
+const BASE_URL = 'http://localhost:5000';
 
 async function request(endpoint, options = {}) {
   const token = useStore.getState().token;
